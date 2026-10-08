@@ -11,3 +11,14 @@ Environment: Python 3.12.14; NumPy 2.3.5; SciPy 1.17.0.
 - Docker was unavailable; docker build has not been tested.
 - No main-sample hypothesis test, raw-data sensitivity analysis or adjusted model has been performed.
 - Public GitHub repository and actual author contribution history remain to be created by the pair.
+
+## Additional Windows validation — 2026-10-08
+
+- Environment: Windows, Python 3.13.7, NumPy 2.3.5, SciPy 1.17.0.
+- Dependencies installed successfully in a virtual environment.
+- All seven unit tests passed.
+- The synthetic sample benchmark completed successfully.
+- Reported invalid records, missing required values and duplicate IDs: 0.
+- Observed runtime: 0.423 seconds.
+- Docker build remains unverified.
+- These checks validate the software pipeline, not the research hypotheses.
