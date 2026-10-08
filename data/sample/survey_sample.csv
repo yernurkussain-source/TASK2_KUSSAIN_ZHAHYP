@@ -1,0 +1,11 @@
+record_id,age,education,ai_frequency,ups_1,ups_2,ups_3,ups_4,ups_5,ups_6
+S001,18,bachelor_category,1,1,2,2,1,2,2
+S002,19,bachelor_category,2,2,3,2,2,3,2
+S003,22,master_category,3,3,2,3,3,2,3
+S004,23,master_category,4,3,4,3,4,3,4
+S005,20,bachelor_category,1,3,3,2,3,2,3
+S006,21,bachelor_category,2,1,2,1,2,1,2
+S007,24,master_category,3,2,2,3,2,2,3
+S008,25,master_category,4,2,3,2,3,2,3
+S009,22,bachelor_category,3,4,3,4,3,4,3
+S010,26,master_category,2,3,2,3,2,3,2

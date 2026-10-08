@@ -1,0 +1,1 @@
+Place a validated, minimally identifying research CSV here after preprocessing is implemented and checked. CSVs in this directory are ignored by Git. Do not substitute this for the synthetic smoke test without setting mode=research and documenting provenance.

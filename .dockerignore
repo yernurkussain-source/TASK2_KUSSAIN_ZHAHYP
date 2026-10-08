@@ -1,0 +1,9 @@
+.git
+.venv
+__pycache__
+outputs
+data/raw
+data/processed
+*.xlsx
+*.zip
+.env

@@ -1,0 +1,9 @@
+{
+  "mode": "synthetic_smoke_test",
+  "data_path": "data/sample/survey_sample.csv",
+  "output_dir": "outputs/sample",
+  "seed": 20261007,
+  "bootstrap_resamples": 1000,
+  "minimum_valid_bootstrap_fraction": 0.95,
+  "alpha": 0.05
+}
