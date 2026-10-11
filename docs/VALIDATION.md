@@ -22,3 +22,17 @@ Environment: Python 3.12.14; NumPy 2.3.5; SciPy 1.17.0.
 - Observed runtime: 0.423 seconds.
 - Docker build remains unverified.
 - These checks validate the software pipeline, not the research hypotheses.
+
+## Docker validation — 2026-10-11
+
+- Host: Windows with Docker Desktop, Linux containers.
+- Docker CLI version reported before execution: 29.8.2.
+- Image build completed successfully, including the unit-test step.
+- Container environment: Python 3.12.14, NumPy 2.3.5, SciPy 1.17.0.
+- Synthetic sample: 10 records.
+- Valid bootstrap resamples: 1,000; skipped: 0.
+- Invalid records, missing required values and duplicate IDs: 0.
+- Benchmark runtime: 0.6274 seconds on this machine.
+- Container exit code: 0.
+- This check confirms pipeline execution, not research findings.
+- This result supersedes the earlier notes that Docker verification was pending.

@@ -43,7 +43,7 @@ docker run --rm task2-kussain-zhahyp
 ```
 
 The result is printed to the console; container files are removed with the container. To retain them, use a bind mount, for example on macOS/Linux: `docker run --rm -v "$PWD/outputs:/app/outputs" task2-kussain-zhahyp`.
-Docker build and container execution have not been verified. Direct execution was tested on Linux with Python 3.12.14 and Windows with Python 3.13.7. Fresh dependency installation, all seven unit tests and the synthetic benchmark succeeded on Windows. See docs/VALIDATION.md for details. The Dockerfile specifies Python 3.12.14; a base-image digest should be recorded after the first successful build.
+Docker build and container execution were successfully verified on Windows using Docker Desktop with Linux containers on 2026-10-11. The synthetic benchmark completed with exit code 0 using Python 3.12.14, NumPy 2.3.5 and SciPy 1.17.0.
 
 ## Structure
 

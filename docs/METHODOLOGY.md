@@ -45,15 +45,14 @@ Validate and score first. Run the main association analysis only after finalizin
 
 ## Data and software
 
-Source: Sharma et al. (2026), Mendeley Data V1, https://doi.org/10.17632/88pv88j8jb.1. Dataset license: CC BY 4.0. The public repository will contain original MIT-licensed code and ten synthetic rows. Exclude participant initials and unnecessary sensitive survey fields from any future derived data release.
+Source: Sharma et al. (2026), Mendeley Data V1, https://doi.org/10.17632/88pv88j8jb.1. Dataset license: CC BY 4.0. The public repository contains original MIT-licensed code and ten synthetic rows. Exclude participant initials and unnecessary sensitive survey fields from any future derived data release.
 
 The pipeline was initially tested with Python 3.12.14, NumPy 2.3.5 and SciPy 1.17.0. Additional testing on Windows with Python 3.13.7 and the same package versions confirmed successful dependency installation, passing results for all seven unit tests, and completion of the synthetic sample benchmark. These execution checks were performed by Kussain and documented in docs/VALIDATION.md.
 
-Parameters are stored in configs/sample.json. The pipeline produces scored.csv and results.json. Synthetic outputs are used only to check the software and are not research findings. Docker build verification remains pending.
+Parameters are stored in configs/sample.json. The pipeline produces scored.csv and results.json. Synthetic outputs are used only to check the software and are not research findings. Docker build and execution were verified on 2026-10-11. The container completed the ten-record synthetic benchmark with exit code 0.
 
 The project repository is available at:
 https://github.com/yernurkussain-source/TASK2_KUSSAIN_ZHAHYP
-
 
 ## Metric definitions and validity (SS5)
 
