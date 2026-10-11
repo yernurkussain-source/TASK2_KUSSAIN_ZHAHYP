@@ -7,10 +7,10 @@ Environment: Python 3.12.14; NumPy 2.3.5; SciPy 1.17.0.
 - The ten-row synthetic benchmark completed and generated both scored.csv and results.json.
 - All 1,000 bootstrap resamples were valid in the smoke test.
 - Runtime was approximately 0.4 seconds in the preparation environment; this is not a performance requirement.
-- Tests and benchmark used the already-installed exact package versions. Fresh dependency installation was not tested.
+- Initial Linux checks used already-installed packages. Fresh dependency installation was subsequently verified on Windows; see the additional validation record below.
 - Docker was unavailable; docker build has not been tested.
 - No main-sample hypothesis test, raw-data sensitivity analysis or adjusted model has been performed.
-- Public GitHub repository and actual author contribution history remain to be created by the pair.
+- The GitHub repository has been created and published. Commit history records changes from both collaborators: https://github.com/yernurkussain-source/TASK2_KUSSAIN_ZHAHYP
 
 ## Additional Windows validation — 2026-10-08
 
