@@ -110,4 +110,4 @@ Before committing, inspect the staged list: no original survey workbooks, creden
 - [ ] A fresh checkout runs the three Quickstart commands and writes both expected output files.
 - [ ] The environment record states what was actually verified; if using Docker, its build and run have been verified.
 - [ ] The repository includes configuration, tests, ten synthetic rows, attribution and license, with sensitive or generated files excluded.
-- [ ] The public link opens without signing in, genuine contributions are visible, and the submitted card matches the repository version.
+- [ ] The public link opens without signing in, genuine contributions are visible, and the submitted card matches the repository version. 
