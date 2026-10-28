@@ -1,0 +1,52 @@
+{
+  "session_id": "9d05201d4880",
+  "config_sha256": "79e4e359c3ad0ff222fecc5a30d1dce7b6e8edcd4ea52b503ca5eb8d72216c23",
+  "input_sha256": "86e8bb64cd9db844ab5eb294db80c21e1351c0e470663ab45c88d89927895e05",
+  "created_utc": "2026-10-28T05:45:25+00:00",
+  "records": 420,
+  "environment": {
+    "python": "3.12.3",
+    "implementation": "CPython",
+    "os": "Linux-6.18.44-fc-v180-x86_64-with-glibc2.39",
+    "machine": "x86_64",
+    "cpu_count_logical": 2,
+    "cpu_model": "Intel(R) Xeon(R) Processor @ 2.80GHz",
+    "ram_total_gb": 7.84,
+    "packages": {
+      "python": "3.12.3",
+      "numpy": "2.3.5",
+      "scipy": "1.17.0",
+      "pandas": "2.3.3",
+      "statsmodels": "0.14.5",
+      "matplotlib": "3.10.7",
+      "seaborn": "0.13.2"
+    },
+    "docker": false,
+    "git_commit": "d56fd32d38e645ee471c09b6da7eb81a9929b9a9"
+  },
+  "design": {
+    "warmup_runs": 5,
+    "benchmark_runs": 30,
+    "bootstrap_resamples": 1000,
+    "workloads_n_records": [
+      50,
+      100,
+      285,
+      500,
+      1000,
+      2000
+    ],
+    "implementations": [
+      "baseline_loop",
+      "vectorized"
+    ],
+    "edge_case_rate": 0.1,
+    "edge_cases": [
+      "missing_item",
+      "out_of_range",
+      "duplicate_id",
+      "constant_exposure"
+    ]
+  },
+  "recommended_isolation": "docker run --rm --cpus=2 --memory=2g ...; close background applications"
+}

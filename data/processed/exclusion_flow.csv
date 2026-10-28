@@ -1,0 +1,14 @@
+sample,step,excluded,remaining
+main_cleaned,records_in_source,0,300
+main_cleaned,education_higher_secondary,15,285
+main_cleaned,analysed,0,285
+sensitivity_a_raw,records_in_source,0,355
+sensitivity_a_raw,education_higher_secondary,25,330
+sensitivity_a_raw,inconsistent_use_no_but_frequency,3,327
+sensitivity_a_raw,no_academic_ai_use,8,319
+sensitivity_a_raw,frequency_rarely_never,16,303
+sensitivity_a_raw,analysed,0,303
+sensitivity_b_raw_five_level,records_in_source,0,355
+sensitivity_b_raw_five_level,education_higher_secondary,25,330
+sensitivity_b_raw_five_level,inconsistent_use_no_but_frequency,3,327
+sensitivity_b_raw_five_level,analysed,0,327
