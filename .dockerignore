@@ -1,9 +1,9 @@
 .git
 .venv
+venv
 __pycache__
+.ipynb_checkpoints
 outputs
-data/raw
-data/processed
-*.xlsx
+data/raw/*.xlsx
 *.zip
 .env

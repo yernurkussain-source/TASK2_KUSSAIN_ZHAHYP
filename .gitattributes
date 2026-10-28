@@ -1,0 +1,6 @@
+# Keep text files LF on every platform so hashes and diffs match across Windows, macOS and Linux.
+* text=auto eol=lf
+*.png binary
+*.pdf binary
+*.xlsx binary
+*.ipynb text eol=lf

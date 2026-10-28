@@ -1,24 +1,47 @@
+# Python and virtual environments
 .venv/
 venv/
+env/
 __pycache__/
 *.py[cod]
-.ipynb_checkpoints/
 .pytest_cache/
-outputs/
+.mypy_cache/
+
+# Jupyter runtime artefacts
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/
+
+# Logs, local outputs and secrets
 *.log
+outputs/
 .env
 .env.*
 !.env.example
+
+# Source data: downloaded by src/fetch_data.py, never committed.
+# Only the Week 7 benchmark log and its metadata are tracked in data/raw/.
+data/raw/*
+!data/raw/README.md
+!data/raw/test_run.jsonl
+!data/raw/test_run_meta.json
 *.xlsx
 *.xls
+*.part
 *.sav
 *.omv
 *.zip
+*.gz
+*.parquet
+
+# Model weights / large binaries
 *.pt
 *.pth
 *.onnx
 *.bin
-data/raw/
-data/processed/*.csv
+
+# OS and editor files
 .DS_Store
 Thumbs.db
+desktop.ini
+.idea/
+.vscode/

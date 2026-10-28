@@ -1,0 +1,54 @@
+# Task 3 research configuration (Weeks 7-8).
+# Every analysis parameter is fixed here before execution. Paths are relative to the repository root.
+
+seed: 20261007
+alpha: 0.05
+ci_level: 0.95
+
+source:
+  citation: "Sharma et al. (2026), Mendeley Data V1"
+  doi: "10.17632/88pv88j8jb.1"
+  licence: "CC BY 4.0"
+  files:
+    raw:
+      path: data/raw/sharma2026_raw.xlsx
+      mendeley_file_id: 0321defa-cd20-4442-8cfa-df06f1259631
+      sha256: a8fdc7e5ad8a2e521fafa816113a688c005051eda23800859fad1a8095840883
+      bytes: 98483
+    cleaned:
+      path: data/raw/sharma2026_cleaned.xlsx
+      mendeley_file_id: cfe83d1f-c174-4245-84ab-f71bc93303d0
+      sha256: dac25b200e4a26ba442651abcf7800eb3cbec972d20ace17b4a95eff47d31593
+      bytes: 145416
+
+processed:
+  dir: data/processed
+  main: data/processed/survey_main.csv          # 285 records from the supplied cleaned workbook
+  raw_coded: data/processed/survey_raw_coded.csv # all 355 raw records, coded, with eligibility flags
+  metrics_summary: data/processed/metrics_summary.csv
+
+analysis:
+  bootstrap_resamples: 10000
+  minimum_valid_bootstrap_fraction: 0.95
+  permutation_resamples: 10000
+  # Reference group for the group comparison: the lowest use level in each sample.
+  reference_level_main: 1       # "A few times a month" (main sample has no lower level)
+  reference_level_five_level: 0 # "Rarely/Never" (raw sensitivity sample only)
+  covariates: [age, gender, education]   # baseline model; specified before the adjusted model was run
+
+benchmark:
+  log_path: data/raw/test_run.jsonl
+  meta_path: data/raw/test_run_meta.json
+  input_path: data/processed/survey_main.csv
+  warmup_runs: 5            # discarded "cold" runs per condition
+  benchmark_runs: 30        # retained runs per condition
+  bootstrap_resamples: 1000 # per run; kept lower than the research value so collection stays short
+  workloads_n_records: [50, 100, 285, 500, 1000, 2000]
+  implementations: [baseline_loop, vectorized]
+  edge_case_rate: 0.10      # share of benchmark runs that receive a deliberately invalid batch
+  edge_cases: [missing_item, out_of_range, duplicate_id, constant_exposure]
+
+reports:
+  figures_dir: reports/figures
+  results_json: reports/results.json
+  dpi: 300

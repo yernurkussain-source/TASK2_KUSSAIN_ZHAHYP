@@ -1,2 +1,14 @@
+# Direct dependencies, exact pins (tested on Python 3.12 and 3.13).
+# requirements-lock.txt pins every transitive dependency of the tested Linux environment.
 numpy==2.3.5
 scipy==1.17.0
+pandas==2.3.3
+matplotlib==3.10.7
+seaborn==0.13.2
+statsmodels==0.14.5
+openpyxl==3.1.5
+PyYAML==6.0.3
+nbformat==5.10.4
+nbclient==0.10.2
+nbconvert==7.16.6
+ipykernel==6.30.1
