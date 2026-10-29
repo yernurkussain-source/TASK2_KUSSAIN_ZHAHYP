@@ -1,65 +1,77 @@
-# Methodology Passport Card
+# Methodology Passport Card (version 2, Task 3)
 
 **Title:** Academic Generative AI Use and Unintentional Procrastination: A Secondary Analysis of an Indian Higher-Education Survey
 
-**Authors:** Kussain and Zhahyp
+**Authors:** Ernur Kussain and Zhanassyl Zhakyp
 
 **Public GitHub URL:** https://github.com/yernurkussain-source/TASK2_KUSSAIN_ZHAHYP
 
+Version 1 of this card was submitted for Task 2. Version 2 corrects the author names, adds explicit reference groups and a baseline model, and records the Task 3 measurement design. The Task 2 hypotheses, variables and primary metric are unchanged.
+
 ## Design and Task 1 alignment
 
-Quantitative, observational secondary analysis. This operationalizes the AI-use/procrastination strand of Task 1. It changes the empirical setting to India and the outcome to unintentional procrastination; Kazakhstan remains a discussion context. It does not directly test academic procrastination among Kazakhstani students. No new participants are recruited.
+Quantitative, observational secondary analysis of public survey data. It operationalises the AI-use and procrastination strand (RQ2) of Task 1. The empirical setting is India and the outcome is unintentional procrastination; Kazakhstan remains a discussion context. The study does not directly test academic procrastination among Kazakhstani students, and no new participants are recruited.
 
 ## Research question and hypotheses
 
-Is frequency of academic GenAI use associated with unintentional procrastination in the selected sample?
+Is the frequency of academic GenAI use associated with unintentional procrastination in the selected sample?
 
-H0: Spearman rho = 0. H1: Spearman rho != 0. Two-sided alpha = 0.05. This analysis plan is written after published source findings may have been encountered, and is not a prospective preregistration.
+H₀: Spearman ρ = 0. H₁: Spearman ρ ≠ 0. Two-sided α = 0.05. The plan was written after published findings from the source may have been seen, so it is not a prospective preregistration. The Task 3 parameters were fixed in `configs/research.yaml` before the main association was computed.
 
 ## Variables
 
-| Role                           | Operational definition                                                                                                           |
-| ------------------------------ | -------------------------------------------------------------------------------------------------------------------------------- |
-| Independent/predictor          | Reported academic AI-use frequency, ordered 1–4 from a few times a month to every day. Measured, not manipulated.                |
-| Dependent                      | UPS sum of six responses scored 1–4, total 6–24. Higher scores indicate more unintentional procrastination.                      |
-| Controlled analysis conditions | Source version, inclusion rules, scoring, complete-case rule, statistical procedure, Python/package versions, seed.              |
-| Potential covariates           | Age, gender and education category for a separately specified supplementary analysis; they are not held constant experimentally. |
+| Role | Operational definition |
+|---|---|
+| Independent (predictor) | Academic AI-use frequency, ordinal: 1 = a few times a month, 2 = once a week, 3 = a few times a week, 4 = every day; 0 = rarely/never in Sensitivity B only. Measured, not manipulated. |
+| Dependent | UPS total: sum of six items scored 1 to 4, range 6 to 24. Higher scores mean more unintentional procrastination. |
+| Controlled analysis conditions | Source version and SHA-256 hashes, eligibility rules, scoring, complete-case rule, statistical procedures, seed 20261007, Python and package versions. |
+| Covariates (supplementary model) | Age, gender, education category. They are adjusted for statistically, not held constant. |
+| Pipeline benchmark (engineering) | Independent: implementation (Task 2 loop vs vectorised) and workload (50 to 2,000 records). Dependent: latency per run (ms). Controlled: bootstrap resamples (1,000), seed per run, warm-up count, machine. |
 
-## Sample
+## Samples
 
-The downloaded raw workbook contains 355 responses and the supplied cleaned workbook contains 300. All 300 cleaned responses were matched to the raw workbook using multiple fields, without publishing initials. Of the 55 excluded source records, 20 report no academic AI use and 35 report use. The authors' full exclusion rationale was not supplied.
+| Sample | Source | Rule | n |
+|---|---|---|---|
+| Main | supplied cleaned workbook (300) | bachelor's or master's category, age ≥ 18 (15 Higher Secondary excluded) | 285 |
+| Sensitivity A | raw workbook (355) | independent rules (consent, education, age ≥ 18, academic use = yes, frequency recorded, complete UPS; 3 inconsistent "no use but monthly frequency" answers excluded) | 303 |
+| Sensitivity B | raw workbook (355) | as A, with rarely/never respondents kept as level 0 | 327 |
 
-Main sample: the 285 records in the supplied cleaned workbook with age >=18 and either bachelor's or master's education category. Exclude 15 Higher Secondary responses. Categories combine graduates and current students, so current enrolment cannot be established separately. All main-sample respondents report academic AI use; there is no non-user comparison group. Selection and convenience-sampling biases limit generalization.
+The categories combine graduates and current students, so current enrolment cannot be established. Convenience sampling and online recruitment limit generalisation.
 
-## Metrics and baseline
+## Metrics, baselines and guardrails
 
-Primary metric: Spearman rho between AI-use frequency and UPS total. Report n, two-sided asymptotic p-value and a 95% paired percentile-bootstrap CI. Use 10,000 bootstrap resamples in the research configuration; the smoke test uses 1,000. Seed: 20261007.
+Primary metric: Spearman ρ between AI-use frequency and UPS total, with n, asymptotic two-sided p, a 10,000-permutation p and a 95% percentile bootstrap CI (10,000 resamples, seed 20261007).
 
-Statistical baseline: rho = 0, representing no monotonic association. This is a null reference, not a randomized control group. Reject H0 when p < 0.05, subject to data-quality checks. Otherwise do not reject H0; do not assert equivalence or absence of association.
+Secondary metrics: Kruskal–Wallis H and ε²; per-level median, p25, p75, p95, p99 and mean ± SD with bootstrap CIs; median difference and Cliff's δ against the reference group with Holm-adjusted Mann–Whitney p.
 
-Guardrails: zero invalid required values; zero missing UPS items in included rows; zero duplicate record IDs; all six UPS values in 1–4; computed totals in 6–24; exact agreement with supplied totals for the audited cleaned records; at least 95% valid bootstrap resamples. Record rejected cases in preprocessing rather than silently replacing missing values with zero. A constant variable stops the analysis. Runtime is a descriptive engineering measurement, not the scientific endpoint.
+Baselines:
+
+1. Statistical null, ρ = 0.
+2. Reference group: the lowest-use level (a few times a month in the main sample; rarely/never in Sensitivity B). This answers the Task 2 feedback that the card had no reference group.
+3. Baseline model: OLS of UPS on age, gender and education, compared with the proposed model that adds AI-use frequency (R², ΔR², nested F test, HC3 standard errors).
+4. Literature reference: Abbas et al. (2024), β = 0.309 for ChatGPT use and general procrastination (different scale, so used only as a rough comparison).
+5. Engineering baseline: the unchanged Task 2 loop bootstrap, compared with the vectorised implementation on identical inputs.
+
+Decision rule: reject H₀ when p < 0.05 and every guardrail passes. A non-rejection would not be read as evidence of no association.
+
+Survey guardrails: zero invalid or missing required values, zero duplicate IDs, all totals within 6 to 24, exact agreement of computed and supplied totals (300 of 300), at least 95% valid bootstrap resamples, no constant variable. Any failure stops the analysis.
+
+Pipeline guardrails: unexpected error rate = 0; every injected invalid batch rejected; identical estimates from both implementations (tolerance 10⁻⁹). Warm-up runs are excluded, and IQR outliers are flagged but kept.
 
 ## Analysis plan
 
-Validate and score first. Run the main association analysis only after finalizing preprocessing. Repeat on eligible raw records using explicit independent selection rules to assess sensitivity to the authors' unexplained exclusions. Specify any adjusted analysis before execution and label it supplementary. The supplied script implements scoring and unadjusted association; raw-workbook preprocessing and adjusted models remain subsequent tasks.
+1. Download and hash-check both workbooks (`src/fetch_data.py`).
+2. Code, apply eligibility rules and audit totals (`src/process_data.py`, `prepare`).
+3. Collect benchmark timings with warm-up and benchmark phases (`src/collector.py`).
+4. Aggregate statistics, write `data/processed/metrics_summary.csv` and `reports/results.json` (`src/process_data.py`, `run_analysis`).
+5. Render figures (`src/visualize.py`) and execute `notebooks/01_data_analysis.ipynb`.
+
+## Validity
+
+Internal validity is limited by cross-sectional self-report, possible confounding (for example workload) and reverse causation. Construct validity is limited because UPS measures unintentional procrastination rather than academic procrastination. External validity is limited by convenience recruitment in India. The two raw-file sensitivity analyses address the authors' unexplained exclusions. Fixed software, hashes and seeds give computational reproducibility but do not remove these biases. Relevance to Kazakhstan is treated as a transferability question.
 
 ## Data and software
 
-Source: Sharma et al. (2026), Mendeley Data V1, https://doi.org/10.17632/88pv88j8jb.1. Dataset license: CC BY 4.0. The public repository contains original MIT-licensed code and ten synthetic rows. Exclude participant initials and unnecessary sensitive survey fields from any future derived data release.
+Source: Sharma et al. (2026), Mendeley Data V1, https://doi.org/10.17632/88pv88j8jb.1, CC BY 4.0. Original code is MIT licensed. Derived files keep only analysis variables and exclude initials, academic-dishonesty items and domicile.
 
-The pipeline was initially tested with Python 3.12.14, NumPy 2.3.5 and SciPy 1.17.0. Additional testing on Windows with Python 3.13.7 and the same package versions confirmed successful dependency installation, passing results for all seven unit tests, and completion of the synthetic sample benchmark. These execution checks were performed by Kussain and documented in docs/VALIDATION.md.
-
-Parameters are stored in configs/sample.json. The pipeline produces scored.csv and results.json. Synthetic outputs are used only to check the software and are not research findings. Docker build and execution were verified on 2026-10-11. The container completed the ten-record synthetic benchmark with exit code 0.
-
-The project repository is available at:
-https://github.com/yernurkussain-source/TASK2_KUSSAIN_ZHAHYP
-
-## Metric definitions and validity (SS5)
-
-For respondent i, UPS_i = sum of the six coded item responses; each item is in {1, 2, 3, 4}, so UPS_i is in [6, 24]. No reverse coding is applied to the six supplied items.
-
-Spearman rho is the Pearson correlation between the average ranks of AI-use frequency and UPS total. Average ranks handle tied values. The 95% percentile interval uses the 2.5th and 97.5th percentiles of valid paired-bootstrap correlations. Bootstrap validity rate = valid resamples / requested resamples; the required rate is at least 0.95.
-
-Internal validity is limited by cross-sectional measurement, self-report, potential confounding and unexplained source exclusions. Fixed software and scoring improve computational reproducibility but do not eliminate these biases. Construct validity is limited by the distinction between unintentional and academic procrastination. External validity is limited by convenience recruitment in India and education labels that mix graduates with current students. Kazakhstan relevance will be discussed as a transferability question, not estimated as a local effect.
-
-The scientific baseline is the null association. The engineering baseline is the fixed synthetic fixture with known UPS totals, checked by unit tests. There is no untreated participant group. Speed and memory are not research outcomes for this question; runtime is recorded for diagnostics. No unsupported resource threshold is imposed.
+Exact package pins are in `requirements.txt` and `requirements-lock.txt`. Execution checks are recorded in `docs/VALIDATION.md`.

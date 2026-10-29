@@ -1,0 +1,26 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below, and cite the source dataset separately."
+title: "Academic Generative AI Use and Unintentional Procrastination: analysis pipeline"
+type: software
+license: MIT
+repository-code: "https://github.com/yernurkussain-source/TASK2_KUSSAIN_ZHAHYP"
+authors:
+  - given-names: Ernur
+    family-names: Kussain
+  - given-names: Zhanassyl
+    family-names: Zhakyp
+references:
+  - type: dataset
+    title: "Datasheets for Role of Generative Artificial Intelligence Usage on Academic Dishonesty Among Indian Undergraduate and Postgraduate Students"
+    authors:
+      - {given-names: Payal, family-names: Sharma}
+      - {given-names: Debopriya, family-names: Nandy}
+      - {given-names: Gungun, family-names: Ramchandani}
+      - {given-names: Ashlin, family-names: James}
+      - {given-names: Megha, family-names: Batra}
+      - {given-names: Rhythm, family-names: Dhanda}
+    year: 2026
+    publisher: {name: Mendeley Data}
+    version: "1"
+    doi: 10.17632/88pv88j8jb.1
+    license: CC-BY-4.0
