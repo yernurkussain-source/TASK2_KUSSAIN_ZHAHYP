@@ -1,0 +1,148 @@
+{
+  "config_sha256": "79e4e359c3ad0ff222fecc5a30d1dce7b6e8edcd4ea52b503ca5eb8d72216c23",
+  "seed": 20261007,
+  "alpha": 0.05,
+  "survey": {
+    "guardrails": {
+      "n": 285,
+      "invalid_required_values": 0,
+      "missing_ups_items": 0,
+      "duplicate_record_ids": 0,
+      "ups_totals_out_of_range": 0,
+      "computed_vs_supplied_total_mismatches": 0,
+      "constant_variable": false
+    },
+    "association": [
+      {
+        "analysis": "main_cleaned_n285",
+        "n": 285,
+        "spearman_rho": 0.28286594512428986,
+        "p_value_asymptotic_two_sided": 1.2109947796538524e-06,
+        "ci95_percentile_bootstrap": [
+          0.17710534103741046,
+          0.3835217024050457
+        ],
+        "valid_bootstrap_resamples": 10000,
+        "skipped_bootstrap_resamples": 0,
+        "bootstrap_valid_fraction": 1.0,
+        "bootstrap_sd": 0.053016568832411064,
+        "p_value_permutation_two_sided": 9.999000099990002e-05,
+        "kruskal_h": 26.38662893050569,
+        "kruskal_p": 7.91515944453895e-06,
+        "kruskal_epsilon_squared": 0.09291066524825947,
+        "decision": "reject_H0"
+      },
+      {
+        "analysis": "sensitivity_a_raw_independent",
+        "n": 303,
+        "spearman_rho": 0.2604137055898356,
+        "p_value_asymptotic_two_sided": 4.35328286829756e-06,
+        "ci95_percentile_bootstrap": [
+          0.1553039695429395,
+          0.3628836522983677
+        ],
+        "valid_bootstrap_resamples": 10000,
+        "skipped_bootstrap_resamples": 0,
+        "bootstrap_valid_fraction": 1.0,
+        "bootstrap_sd": 0.05269381816657885,
+        "p_value_permutation_two_sided": 9.999000099990002e-05,
+        "kruskal_h": 23.705322136750926,
+        "kruskal_p": 2.878052027722246e-05,
+        "kruskal_epsilon_squared": 0.07849444416142691,
+        "decision": "reject_H0"
+      },
+      {
+        "analysis": "sensitivity_b_raw_five_level",
+        "n": 327,
+        "spearman_rho": 0.3051068477735398,
+        "p_value_asymptotic_two_sided": 1.7917639841556333e-08,
+        "ci95_percentile_bootstrap": [
+          0.20463803458100147,
+          0.3988253912501933
+        ],
+        "valid_bootstrap_resamples": 10000,
+        "skipped_bootstrap_resamples": 0,
+        "bootstrap_valid_fraction": 1.0,
+        "bootstrap_sd": 0.04894043266713484,
+        "p_value_permutation_two_sided": 9.999000099990002e-05,
+        "kruskal_h": 33.9525520612423,
+        "kruskal_p": 7.620732628968713e-07,
+        "kruskal_epsilon_squared": 0.10414893270319724,
+        "decision": "reject_H0"
+      }
+    ],
+    "models_main": {
+      "n": 285,
+      "baseline": {
+        "formula": "ups_total ~ age + C(gender) + C(education)",
+        "r2": 0.004142874974597199,
+        "adj_r2": -0.006489051627097675,
+        "aic": 1690.991955038523,
+        "bic": 1705.6019117595977
+      },
+      "proposed": {
+        "formula": "ups_total ~ age + C(gender) + C(education) + ai_frequency",
+        "r2": 0.08552598960464142,
+        "adj_r2": 0.07246207517042202,
+        "aic": 1668.6943511268291,
+        "bic": 1686.9567970281723,
+        "beta_ai_frequency": 1.3022072319093272,
+        "beta_ci95_hc3": [
+          0.8133135751354736,
+          1.7911008886831807
+        ],
+        "beta_p_hc3": 1.784211173288236e-07,
+        "standardised_beta": 0.2892999854748137,
+        "standardised_beta_ci95_hc3": [
+          0.18068675991621613,
+          0.3979132110334113
+        ]
+      },
+      "delta_r2": 0.08138311463004422,
+      "nested_f": 24.918446929465677,
+      "nested_f_p": 1.0528184211142058e-06,
+      "categorical_robustness": {
+        "formula": "ups_total ~ age + C(gender) + C(education) + C(ai_frequency, Treatment(1))",
+        "r2": 0.0968454058845516,
+        "delta_r2": 0.0927025309099544,
+        "nested_f": 9.511588145551757,
+        "nested_f_p": 5.31515738042797e-06
+      },
+      "residual_diagnostics": {
+        "shapiro_p": 0.001035416946177014,
+        "breusch_pagan_p": 0.1769967440472038
+      }
+    },
+    "ups_cronbach_alpha_main": 0.8866125232825681,
+    "input_sha256": {
+      "main": "86e8bb64cd9db844ab5eb294db80c21e1351c0e470663ab45c88d89927895e05",
+      "raw_coded": "6a66ec77fc62760a0bc656afd18a057f508ee1db1aafcb3509e307b50a179520"
+    }
+  },
+  "pipeline": {
+    "log_sha256": "7511abd96dd646fac6a692673d4ef087badc82090bf734d748e49f1bb12c36bc",
+    "records_total": 420,
+    "warmup_records_discarded": 60,
+    "benchmark_records": 360,
+    "estimate_agreement": {
+      "paired_runs_compared": 155,
+      "max_abs_difference": {
+        "rho": 0.0,
+        "ci_low": 8.326672684688674e-17,
+        "ci_high": 2.220446049250313e-16
+      },
+      "mismatches_over_1e-9": 0
+    },
+    "unexpected_error_rate_overall": 0.0,
+    "rejection_detection_rate_overall": 1.0
+  },
+  "versions": {
+    "python": "3.14.2",
+    "numpy": "2.3.5",
+    "scipy": "1.17.0",
+    "pandas": "2.3.3",
+    "statsmodels": "0.14.5",
+    "matplotlib": "3.10.7",
+    "seaborn": "0.13.2"
+  }
+}

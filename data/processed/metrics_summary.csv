@@ -1,0 +1,194 @@
+layer,analysis,group,metric,estimate,ci95_low,ci95_high,n,unit
+survey,main_cleaned_n285,all,spearman_rho,0.28286594512428986,0.17710534103741046,0.3835217024050457,285.0,dimensionless
+survey,main_cleaned_n285,all,p_value_asymptotic,1.2109947796538524e-06,,,285.0,
+survey,main_cleaned_n285,all,p_value_permutation,9.999000099990002e-05,,,285.0,
+survey,main_cleaned_n285,all,kruskal_epsilon_squared,0.09291066524825947,,,285.0,
+survey,main_cleaned_n285,all,bootstrap_valid_fraction,1.0,,,285.0,proportion
+survey,sensitivity_a_raw_independent,all,spearman_rho,0.2604137055898356,0.1553039695429395,0.3628836522983677,303.0,dimensionless
+survey,sensitivity_a_raw_independent,all,p_value_asymptotic,4.35328286829756e-06,,,303.0,
+survey,sensitivity_a_raw_independent,all,p_value_permutation,9.999000099990002e-05,,,303.0,
+survey,sensitivity_a_raw_independent,all,kruskal_epsilon_squared,0.07849444416142691,,,303.0,
+survey,sensitivity_a_raw_independent,all,bootstrap_valid_fraction,1.0,,,303.0,proportion
+survey,sensitivity_b_raw_five_level,all,spearman_rho,0.3051068477735398,0.20463803458100147,0.3988253912501933,327.0,dimensionless
+survey,sensitivity_b_raw_five_level,all,p_value_asymptotic,1.7917639841556333e-08,,,327.0,
+survey,sensitivity_b_raw_five_level,all,p_value_permutation,9.999000099990002e-05,,,327.0,
+survey,sensitivity_b_raw_five_level,all,kruskal_epsilon_squared,0.10414893270319724,,,327.0,
+survey,sensitivity_b_raw_five_level,all,bootstrap_valid_fraction,1.0,,,327.0,proportion
+survey,main_cleaned_n285,1:Few times a month,ups_median,12.0,10.0,12.0,81.0,UPS points
+survey,main_cleaned_n285,1:Few times a month,ups_mean,12.012345679012345,11.098765432098766,12.950617283950617,81.0,UPS points
+survey,main_cleaned_n285,1:Few times a month,ups_sd,4.293873039461268,,,81.0,UPS points
+survey,main_cleaned_n285,1:Few times a month,ups_p25,9.0,,,81.0,UPS points
+survey,main_cleaned_n285,1:Few times a month,ups_p75,14.0,,,81.0,UPS points
+survey,main_cleaned_n285,1:Few times a month,ups_p95,20.0,,,81.0,UPS points
+survey,main_cleaned_n285,1:Few times a month,ups_p99,21.400000000000006,,,81.0,UPS points
+survey,main_cleaned_n285,2:Once a week,ups_median,14.0,12.0,15.0,39.0,UPS points
+survey,main_cleaned_n285,2:Once a week,ups_mean,13.384615384615385,12.102564102564102,14.717948717948717,39.0,UPS points
+survey,main_cleaned_n285,2:Once a week,ups_sd,4.234043635352956,,,39.0,UPS points
+survey,main_cleaned_n285,2:Once a week,ups_p25,9.0,,,39.0,UPS points
+survey,main_cleaned_n285,2:Once a week,ups_p75,16.0,,,39.0,UPS points
+survey,main_cleaned_n285,2:Once a week,ups_p95,20.200000000000003,,,39.0,UPS points
+survey,main_cleaned_n285,2:Once a week,ups_p99,22.0,,,39.0,UPS points
+survey,main_cleaned_n285,3:Few times a week,ups_median,16.0,14.0,17.0,129.0,UPS points
+survey,main_cleaned_n285,3:Few times a week,ups_mean,15.24031007751938,14.434108527131784,16.069767441860463,129.0,UPS points
+survey,main_cleaned_n285,3:Few times a week,ups_sd,4.784047700755164,,,129.0,UPS points
+survey,main_cleaned_n285,3:Few times a week,ups_p25,12.0,,,129.0,UPS points
+survey,main_cleaned_n285,3:Few times a week,ups_p75,19.0,,,129.0,UPS points
+survey,main_cleaned_n285,3:Few times a week,ups_p95,23.0,,,129.0,UPS points
+survey,main_cleaned_n285,3:Few times a week,ups_p99,24.0,,,129.0,UPS points
+survey,main_cleaned_n285,4:Every day,ups_median,15.5,14.0,16.0,36.0,UPS points
+survey,main_cleaned_n285,4:Every day,ups_mean,14.944444444444445,13.722222222222221,16.13888888888889,36.0,UPS points
+survey,main_cleaned_n285,4:Every day,ups_sd,3.7716570397368883,,,36.0,UPS points
+survey,main_cleaned_n285,4:Every day,ups_p25,12.0,,,36.0,UPS points
+survey,main_cleaned_n285,4:Every day,ups_p75,17.25,,,36.0,UPS points
+survey,main_cleaned_n285,4:Every day,ups_p95,21.0,,,36.0,UPS points
+survey,main_cleaned_n285,4:Every day,ups_p99,22.949999999999996,,,36.0,UPS points
+survey,sensitivity_b_raw_five_level,0:Rarely/never,ups_median,10.5,8.0,13.0,24.0,UPS points
+survey,sensitivity_b_raw_five_level,0:Rarely/never,ups_mean,10.833333333333334,9.291666666666666,12.5,24.0,UPS points
+survey,sensitivity_b_raw_five_level,0:Rarely/never,ups_sd,4.114308718592232,,,24.0,UPS points
+survey,sensitivity_b_raw_five_level,0:Rarely/never,ups_p25,7.0,,,24.0,UPS points
+survey,sensitivity_b_raw_five_level,0:Rarely/never,ups_p75,14.0,,,24.0,UPS points
+survey,sensitivity_b_raw_five_level,0:Rarely/never,ups_p95,17.699999999999996,,,24.0,UPS points
+survey,sensitivity_b_raw_five_level,0:Rarely/never,ups_p99,19.54,,,24.0,UPS points
+survey,sensitivity_b_raw_five_level,1:Few times a month,ups_median,12.0,10.0,13.0,89.0,UPS points
+survey,sensitivity_b_raw_five_level,1:Few times a month,ups_mean,12.292134831460674,11.404494382022472,13.213483146067416,89.0,UPS points
+survey,sensitivity_b_raw_five_level,1:Few times a month,ups_sd,4.413827053061907,,,89.0,UPS points
+survey,sensitivity_b_raw_five_level,1:Few times a month,ups_p25,9.0,,,89.0,UPS points
+survey,sensitivity_b_raw_five_level,1:Few times a month,ups_p75,15.0,,,89.0,UPS points
+survey,sensitivity_b_raw_five_level,1:Few times a month,ups_p95,20.0,,,89.0,UPS points
+survey,sensitivity_b_raw_five_level,1:Few times a month,ups_p99,23.120000000000005,,,89.0,UPS points
+survey,sensitivity_b_raw_five_level,2:Once a week,ups_median,14.0,12.0,15.0,41.0,UPS points
+survey,sensitivity_b_raw_five_level,2:Once a week,ups_mean,13.439024390243903,12.195121951219512,14.707317073170731,41.0,UPS points
+survey,sensitivity_b_raw_five_level,2:Once a week,ups_sd,4.147582310743241,,,41.0,UPS points
+survey,sensitivity_b_raw_five_level,2:Once a week,ups_p25,9.0,,,41.0,UPS points
+survey,sensitivity_b_raw_five_level,2:Once a week,ups_p75,16.0,,,41.0,UPS points
+survey,sensitivity_b_raw_five_level,2:Once a week,ups_p95,20.0,,,41.0,UPS points
+survey,sensitivity_b_raw_five_level,2:Once a week,ups_p99,22.0,,,41.0,UPS points
+survey,sensitivity_b_raw_five_level,3:Few times a week,ups_median,15.0,14.0,17.0,133.0,UPS points
+survey,sensitivity_b_raw_five_level,3:Few times a week,ups_mean,15.19548872180451,14.38345864661654,16.015037593984964,133.0,UPS points
+survey,sensitivity_b_raw_five_level,3:Few times a week,ups_sd,4.775979427739405,,,133.0,UPS points
+survey,sensitivity_b_raw_five_level,3:Few times a week,ups_p25,12.0,,,133.0,UPS points
+survey,sensitivity_b_raw_five_level,3:Few times a week,ups_p75,19.0,,,133.0,UPS points
+survey,sensitivity_b_raw_five_level,3:Few times a week,ups_p95,23.0,,,133.0,UPS points
+survey,sensitivity_b_raw_five_level,3:Few times a week,ups_p99,24.0,,,133.0,UPS points
+survey,sensitivity_b_raw_five_level,4:Every day,ups_median,15.5,14.0,16.0,40.0,UPS points
+survey,sensitivity_b_raw_five_level,4:Every day,ups_mean,14.9,13.825,16.0,40.0,UPS points
+survey,sensitivity_b_raw_five_level,4:Every day,ups_sd,3.636002313051082,,,40.0,UPS points
+survey,sensitivity_b_raw_five_level,4:Every day,ups_p25,12.0,,,40.0,UPS points
+survey,sensitivity_b_raw_five_level,4:Every day,ups_p75,17.0,,,40.0,UPS points
+survey,sensitivity_b_raw_five_level,4:Every day,ups_p95,21.0,,,40.0,UPS points
+survey,sensitivity_b_raw_five_level,4:Every day,ups_p99,22.83,,,40.0,UPS points
+survey,main_cleaned_n285,2 vs 1,median_difference,2.0,0.0,5.0,39.0,UPS points
+survey,main_cleaned_n285,2 vs 1,cliffs_delta,0.20639442861665083,-0.012037037037037015,0.41912788857233296,39.0,dimensionless
+survey,main_cleaned_n285,2 vs 1,p_value_holm,0.0671576744248977,,,39.0,
+survey,main_cleaned_n285,3 vs 1,median_difference,4.0,2.0,6.0,129.0,UPS points
+survey,main_cleaned_n285,3 vs 1,cliffs_delta,0.3859699492774428,0.23465642645229223,0.5295339266915493,129.0,dimensionless
+survey,main_cleaned_n285,3 vs 1,p_value_holm,7.3272771340378806e-06,,,129.0,
+survey,main_cleaned_n285,4 vs 1,median_difference,3.5,2.0,6.0,36.0,UPS points
+survey,main_cleaned_n285,4 vs 1,cliffs_delta,0.41460905349794236,0.21433470507544583,0.5997942386831276,36.0,dimensionless
+survey,main_cleaned_n285,4 vs 1,p_value_holm,0.0006913288960499207,,,36.0,
+survey,sensitivity_b_raw_five_level,1 vs 0,median_difference,1.5,-2.0,4.0,89.0,UPS points
+survey,sensitivity_b_raw_five_level,1 vs 0,cliffs_delta,0.18773408239700373,-0.08100421348314592,0.4480454119850186,89.0,dimensionless
+survey,sensitivity_b_raw_five_level,1 vs 0,p_value_holm,0.15888061683583277,,,89.0,
+survey,sensitivity_b_raw_five_level,2 vs 0,median_difference,3.5,0.0,6.5,41.0,UPS points
+survey,sensitivity_b_raw_five_level,2 vs 0,cliffs_delta,0.3597560975609756,0.08635670731707344,0.6199186991869918,41.0,dimensionless
+survey,sensitivity_b_raw_five_level,2 vs 0,p_value_holm,0.032138564472125625,,,41.0,
+survey,sensitivity_b_raw_five_level,3 vs 0,median_difference,4.5,2.0,8.0,133.0,UPS points
+survey,sensitivity_b_raw_five_level,3 vs 0,cliffs_delta,0.5075187969924813,0.2932252506265664,0.693922305764411,133.0,dimensionless
+survey,sensitivity_b_raw_five_level,3 vs 0,p_value_holm,0.0003046006153235564,,,133.0,
+survey,sensitivity_b_raw_five_level,4 vs 0,median_difference,5.0,2.0,8.0,40.0,UPS points
+survey,sensitivity_b_raw_five_level,4 vs 0,cliffs_delta,0.54375,0.28333333333333344,0.7625,40.0,dimensionless
+survey,sensitivity_b_raw_five_level,4 vs 0,p_value_holm,0.000857959254827665,,,40.0,
+survey,models_main,baseline_covariates,r2,0.004142874974597199,,,285.0,proportion
+survey,models_main,proposed_plus_frequency,r2,0.08552598960464142,,,285.0,proportion
+survey,models_main,proposed_minus_baseline,delta_r2,0.08138311463004422,,,285.0,proportion
+survey,models_main,proposed_plus_frequency,beta_ai_frequency,1.3022072319093272,0.8133135751354736,1.7911008886831807,285.0,UPS points per frequency level
+pipeline,latency,baseline_loop|n=50,p50_ms,374.605318,369.022255,387.06672,27.0,ms
+pipeline,latency,baseline_loop|n=50,p95_ms,430.7291462,397.763623,436.106587,27.0,ms
+pipeline,latency,baseline_loop|n=50,p99_ms,435.16899606,,,27.0,ms
+pipeline,latency,baseline_loop|n=50,mean_ms,381.2396843703703,371.76266604814816,391.2410980462963,27.0,ms
+pipeline,latency,baseline_loop|n=50,sd_ms,26.395710999111408,,,27.0,ms
+pipeline,guardrail,baseline_loop|n=50,unexpected_error_rate,0.0,,,30.0,proportion
+pipeline,guardrail,baseline_loop|n=50,rejection_detection_rate,1.0,,,3.0,proportion
+pipeline,latency,baseline_loop|n=100,p50_ms,398.461563,364.956973,424.702529,27.0,ms
+pipeline,latency,baseline_loop|n=100,p95_ms,501.88569429999995,440.35688269999997,538.42722,27.0,ms
+pipeline,latency,baseline_loop|n=100,p99_ms,533.25988718,,,27.0,ms
+pipeline,latency,baseline_loop|n=100,mean_ms,402.38845859259266,385.0053017555556,421.8422856,27.0,ms
+pipeline,latency,baseline_loop|n=100,sd_ms,50.76018155355227,,,27.0,ms
+pipeline,guardrail,baseline_loop|n=100,unexpected_error_rate,0.0,,,30.0,proportion
+pipeline,guardrail,baseline_loop|n=100,rejection_detection_rate,1.0,,,3.0,proportion
+pipeline,latency,baseline_loop|n=285,p50_ms,456.430826,448.38579,478.144322,23.0,ms
+pipeline,latency,baseline_loop|n=285,p95_ms,524.8010916999999,487.55552,558.588382,23.0,ms
+pipeline,latency,baseline_loop|n=285,p99_ms,551.51814388,,,23.0,ms
+pipeline,latency,baseline_loop|n=285,mean_ms,467.666874826087,455.1886767434783,481.9279238630435,23.0,ms
+pipeline,latency,baseline_loop|n=285,sd_ms,33.42932446948868,,,23.0,ms
+pipeline,guardrail,baseline_loop|n=285,unexpected_error_rate,0.0,,,30.0,proportion
+pipeline,guardrail,baseline_loop|n=285,rejection_detection_rate,1.0,,,7.0,proportion
+pipeline,latency,baseline_loop|n=500,p50_ms,496.1685765,492.77076450000004,511.47149,26.0,ms
+pipeline,latency,baseline_loop|n=500,p95_ms,595.470579,530.38425,702.334997,26.0,ms
+pipeline,latency,baseline_loop|n=500,p99_ms,675.740343,,,26.0,ms
+pipeline,latency,baseline_loop|n=500,mean_ms,511.8260196538461,494.4197355971154,533.7370199624999,26.0,ms
+pipeline,latency,baseline_loop|n=500,sd_ms,52.0340339714754,,,26.0,ms
+pipeline,guardrail,baseline_loop|n=500,unexpected_error_rate,0.0,,,30.0,proportion
+pipeline,guardrail,baseline_loop|n=500,rejection_detection_rate,1.0,,,4.0,proportion
+pipeline,latency,baseline_loop|n=1000,p50_ms,648.790394,629.475751,682.434609,25.0,ms
+pipeline,latency,baseline_loop|n=1000,p95_ms,699.1040112000001,686.528865,770.207954,25.0,ms
+pipeline,latency,baseline_loop|n=1000,p99_ms,753.2308140799998,,,25.0,ms
+pipeline,latency,baseline_loop|n=1000,mean_ms,652.7836342400001,636.805608628,669.815883362,25.0,ms
+pipeline,latency,baseline_loop|n=1000,sd_ms,42.801282505648295,,,25.0,ms
+pipeline,guardrail,baseline_loop|n=1000,unexpected_error_rate,0.0,,,30.0,proportion
+pipeline,guardrail,baseline_loop|n=1000,rejection_detection_rate,1.0,,,5.0,proportion
+pipeline,latency,baseline_loop|n=2000,p50_ms,905.295662,868.574897,917.726878,27.0,ms
+pipeline,latency,baseline_loop|n=2000,p95_ms,1064.9693816000001,947.042073,1120.808994,27.0,ms
+pipeline,latency,baseline_loop|n=2000,p99_ms,1107.4036945599998,,,27.0,ms
+pipeline,latency,baseline_loop|n=2000,mean_ms,906.7972421111111,877.3324355527776,938.5680585703703,27.0,ms
+pipeline,latency,baseline_loop|n=2000,sd_ms,83.38418511938532,,,27.0,ms
+pipeline,guardrail,baseline_loop|n=2000,unexpected_error_rate,0.0,,,30.0,proportion
+pipeline,guardrail,baseline_loop|n=2000,rejection_detection_rate,1.0,,,3.0,proportion
+pipeline,latency,vectorized|n=50,p50_ms,13.477353,13.252702,13.800275,27.0,ms
+pipeline,latency,vectorized|n=50,p95_ms,17.9080317,14.30344,19.940282,27.0,ms
+pipeline,latency,vectorized|n=50,p99_ms,19.60816294,,,27.0,ms
+pipeline,latency,vectorized|n=50,mean_ms,14.015834370370372,13.44640252777778,14.723398849074076,27.0,ms
+pipeline,latency,vectorized|n=50,sd_ms,1.727002780790736,,,27.0,ms
+pipeline,guardrail,vectorized|n=50,unexpected_error_rate,0.0,,,30.0,proportion
+pipeline,guardrail,vectorized|n=50,rejection_detection_rate,1.0,,,3.0,proportion
+pipeline,latency,vectorized|n=100,p50_ms,19.496477,19.06036,19.806479,27.0,ms
+pipeline,latency,vectorized|n=100,p95_ms,29.3195312,21.167511,30.10119,27.0,ms
+pipeline,latency,vectorized|n=100,p99_ms,29.9255158,,,27.0,ms
+pipeline,latency,vectorized|n=100,mean_ms,20.784683851851852,19.673707780555556,22.133118502777773,27.0,ms
+pipeline,latency,vectorized|n=100,sd_ms,3.3335004306531744,,,27.0,ms
+pipeline,guardrail,vectorized|n=100,unexpected_error_rate,0.0,,,30.0,proportion
+pipeline,guardrail,vectorized|n=100,rejection_detection_rate,1.0,,,3.0,proportion
+pipeline,latency,vectorized|n=285,p50_ms,47.203911,46.126128,48.258107,23.0,ms
+pipeline,latency,vectorized|n=285,p95_ms,63.69200899999999,51.98104159999999,65.882703,23.0,ms
+pipeline,latency,vectorized|n=285,p99_ms,65.61768880000001,,,23.0,ms
+pipeline,latency,vectorized|n=285,mean_ms,49.246958260869576,47.124620635869555,51.768380630434784,23.0,ms
+pipeline,latency,vectorized|n=285,sd_ms,5.907255928588874,,,23.0,ms
+pipeline,guardrail,vectorized|n=285,unexpected_error_rate,0.0,,,30.0,proportion
+pipeline,guardrail,vectorized|n=285,rejection_detection_rate,1.0,,,7.0,proportion
+pipeline,latency,vectorized|n=500,p50_ms,77.3481645,75.874346,78.373173,26.0,ms
+pipeline,latency,vectorized|n=500,p95_ms,85.63214775,78.561083,87.971384,26.0,ms
+pipeline,latency,vectorized|n=500,p99_ms,87.58675825,,,26.0,ms
+pipeline,latency,vectorized|n=500,mean_ms,77.58240626923076,76.11067605096154,79.19170024711538,26.0,ms
+pipeline,latency,vectorized|n=500,sd_ms,4.107942326806038,,,26.0,ms
+pipeline,guardrail,vectorized|n=500,unexpected_error_rate,0.0,,,30.0,proportion
+pipeline,guardrail,vectorized|n=500,rejection_detection_rate,1.0,,,4.0,proportion
+pipeline,latency,vectorized|n=1000,p50_ms,151.24902,146.223022,155.191988,25.0,ms
+pipeline,latency,vectorized|n=1000,p95_ms,167.84867719999997,157.4149382,171.978524,25.0,ms
+pipeline,latency,vectorized|n=1000,p99_ms,171.34959343999998,,,25.0,ms
+pipeline,latency,vectorized|n=1000,mean_ms,150.89477015999998,147.319538091,154.471021,25.0,ms
+pipeline,latency,vectorized|n=1000,sd_ms,9.277443718250472,,,25.0,ms
+pipeline,guardrail,vectorized|n=1000,unexpected_error_rate,0.0,,,30.0,proportion
+pipeline,guardrail,vectorized|n=1000,rejection_detection_rate,1.0,,,5.0,proportion
+pipeline,latency,vectorized|n=2000,p50_ms,277.334174,266.180457,287.38523,27.0,ms
+pipeline,latency,vectorized|n=2000,p95_ms,324.7306422,296.305784,354.067815,27.0,ms
+pipeline,latency,vectorized|n=2000,p99_ms,348.05685342,,,27.0,ms
+pipeline,latency,vectorized|n=2000,mean_ms,278.9942579259259,269.6292231027778,289.1518071018519,27.0,ms
+pipeline,latency,vectorized|n=2000,sd_ms,26.28500805670719,,,27.0,ms
+pipeline,guardrail,vectorized|n=2000,unexpected_error_rate,0.0,,,30.0,proportion
+pipeline,guardrail,vectorized|n=2000,rejection_detection_rate,1.0,,,3.0,proportion
+pipeline,speedup,n=50.0,speedup_p50,27.795170015951946,27.023096351340826,28.922672416368382,,ratio
+pipeline,speedup,n=100.0,speedup_p50,20.437618704138192,18.58243905163466,21.764196146562497,,ratio
+pipeline,speedup,n=285.0,speedup_p50,9.669343415209813,9.265207261890312,10.306547547576756,,ratio
+pipeline,speedup,n=500.0,speedup_p50,6.414742737689658,6.321782789121821,6.668676993264888,,ratio
+pipeline,speedup,n=1000.0,speedup_p50,4.289551059570502,4.13071299285865,4.525381927440401,,ratio
+pipeline,speedup,n=2000.0,speedup_p50,3.2642773479477505,3.096908057885405,3.4103534881225337,,ratio
