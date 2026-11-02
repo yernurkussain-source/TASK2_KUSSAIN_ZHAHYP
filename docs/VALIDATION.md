@@ -23,7 +23,7 @@ Entries are in date order. Each one states what was run, where, and what it does
 
 These checks covered the software pipeline only. No research hypothesis was tested in Task 2.
 
-## Task 3, Weeks 7 and 8
+## Task 3: data collection and analysis
 
 ### 2026-10-28, source data
 
@@ -46,3 +46,21 @@ These checks covered the software pipeline only. No research hypothesis was test
 * `notebooks/01_data_analysis.ipynb` was executed top to bottom with nbconvert on Python 3.12 (with workbooks) and on Python 3.13 (without workbooks): execution counts 1 to 12 in order, no errors.
 * All five figures exist as PDF and 300 DPI PNG and were inspected visually for axis units, uncertainty display, legend placement and grayscale-distinguishable markers. The seaborn colour-blind colours used were checked with a palette validator (CVD separation passed).
 * Not verified here: `docker build`, because Docker Hub is not reachable from the preparation environment. The Dockerfile now installs `requirements-lock.txt` and runs `src/run_pipeline.py`, so it has to be rebuilt and run on a machine with Docker before the final submission. Windows execution of the Task 3 scripts has not been verified yet either.
+
+## Task 3: domain model and report
+
+### 2026-11-02, domain model, results section and report (preparation environment)
+
+* `docs/domain_model.md`: all 137 LaTeX expressions (display and inline) parse with KaTeX 0.16.11 without errors; the Mermaid C4 diagram renders with Mermaid CLI 11.16.0 and is exported to `reports/figures/domain_c4_container.pdf` and `.png`.
+* `src/build_report.py` fills `reports/paper_section_4.md` and the LaTeX inputs from `reports/results.json` and `data/processed/`; no placeholder remains, and the tests check that the reported primary estimate equals the value in `results.json`.
+* `reports/latex/task3_report.tex` compiles with `latexmk -pdf` (pdfTeX, TeX Live) without errors, overfull boxes or undefined references: 9 pages, all fonts embedded. The compiled file is `reports/TASK3_KUSSAIN_ZHAKYP_REPORT.pdf`.
+* The figure titles no longer carry their own numbers, so the captions in the report and in `paper_section_4.md` do the numbering. Figure 6 (four panels, (a) to (d)) was added; all six figures exist as PDF and 300 DPI PNG.
+* 29 unit tests passed on Python 3.12.3 and 3.13.18 (Linux). In a fresh clone with Python 3.13, the pipeline, the notebook (13 code cells, in order, no errors) and the LaTeX build all ran; the figures, the results section and the LaTeX inputs were identical to the committed versions. The processed CSVs differed only in the last floating-point digits between machines.
+* Not verified in this environment: `docker build` and `docker run` (see the next entry).
+
+### 2026-11-02, Windows and Docker Desktop (Ernur Kussain)
+
+* Windows, Python 3.13.7 virtual environment: all 29 unit tests passed in 7.2 s with the source workbooks present, so the re-coding check ran as well.
+* `docker build -t task3-kussain-zhakyp .` completed on Docker Desktop (Linux containers) from `python:3.12.14-slim` (digest `f77ac9e4…e51f`), with dependencies installed from `requirements-lock.txt` and the unit-test step passing inside the image.
+* `docker run --rm task3-kussain-zhakyp` ran the pipeline from the committed processed CSVs and benchmark log in 10.3 s: n = 285, ρ = 0.2829, 95% CI [0.1771, 0.3835], p = 1.211 × 10⁻⁶, identical to `reports/results.json`. It wrote all six figures (PDF and PNG), `reports/paper_section_4.md` and the LaTeX inputs inside the container.
+* The workbooks are excluded by `.dockerignore`, so the container does not re-code the survey data; that step is covered by the Windows test run above.

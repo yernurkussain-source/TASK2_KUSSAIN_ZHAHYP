@@ -1,11 +1,12 @@
 """One-command entry point for Task 3.
 
 Default: re-code the source workbooks if they are in data/raw/ (otherwise use the committed
-data/processed/ CSVs), aggregate statistics, and render all figures.
+data/processed/ CSVs), aggregate statistics, render all figures and rebuild the results section
+(reports/paper_section_4.md and the LaTeX inputs).
 
     python src/run_pipeline.py                 # analysis + figures (about 10 s)
     python src/run_pipeline.py --fetch         # download and verify the public workbooks first
-    python src/run_pipeline.py --collect       # also re-run the Week 7 benchmark (about 2-3 min)
+    python src/run_pipeline.py --collect       # also re-run the pipeline benchmark (about 2-3 min)
 """
 from __future__ import annotations
 
@@ -15,6 +16,7 @@ import time
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+import build_report  # noqa: E402
 import collector  # noqa: E402
 import fetch_data  # noqa: E402
 import process_data  # noqa: E402
@@ -35,6 +37,7 @@ def main(argv=None):
         collector.main(['--config', args.config])
     process_data.main(['--config', args.config])
     visualize.main(['--config', args.config])
+    build_report.main(['--config', args.config])
     print(f'pipeline finished in {time.perf_counter() - started:.1f} s')
 
 

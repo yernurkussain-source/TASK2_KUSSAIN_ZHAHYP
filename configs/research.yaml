@@ -1,4 +1,4 @@
-# Task 3 research configuration (Weeks 7-8).
+# Task 3 research configuration.
 # Every analysis parameter is fixed here before execution. Paths are relative to the repository root.
 
 seed: 20261007

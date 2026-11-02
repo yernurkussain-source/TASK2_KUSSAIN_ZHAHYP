@@ -1,4 +1,4 @@
-"""Week 7 measurement harness for the Task 2 analysis pipeline.
+"""Measurement harness for the Task 2 analysis pipeline.
 
 The target function is the Task 2 pipeline itself: validate records, score UPS, then estimate the
 Spearman correlation with a percentile-bootstrap interval. Two implementations are timed on

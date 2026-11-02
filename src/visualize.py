@@ -1,4 +1,4 @@
-"""Publication figures for Task 3 (Week 8).
+"""Publication figures for Task 3.
 
 Every figure follows the three course rules: labelled axes with units, visible uncertainty
 (95% bootstrap CI and/or p25-p75 bands), and a colour-blind-safe palette (seaborn "colorblind")
@@ -82,7 +82,7 @@ def fig_latency_vs_load(latency: pd.DataFrame, out_dir: Path, dpi: int = 300):
     ax.xaxis.set_minor_locator(matplotlib.ticker.NullLocator())
     ax.set_xlabel('Workload size (survey records per run, log scale)')
     ax.set_ylabel('Pipeline latency per run (ms, log scale)')
-    ax.set_title('Fig. 1. Analysis-pipeline latency versus workload\n'
+    ax.set_title('Analysis-pipeline latency versus workload\n'
                  '(benchmark phase only; shaded bands = 95% bootstrap CI of p50 and p95)', fontsize=11)
     ax.legend(fontsize=8, loc='upper center', bbox_to_anchor=(0.5, -0.17), ncol=2, columnspacing=1.2)
     return save(fig, 'fig1_latency_vs_load', out_dir, dpi)
@@ -119,7 +119,7 @@ def fig_distribution_boxplot(main: pd.DataFrame, groups: pd.DataFrame, rho: dict
     ax.set_xlabel(FREQ_AXIS)
     ax.set_ylabel(UPS_AXIS)
     lo, hi = rho['ci95_percentile_bootstrap']
-    ax.set_title('Fig. 2. Unintentional procrastination by academic GenAI use frequency\n'
+    ax.set_title('Unintentional procrastination by academic GenAI use frequency\n'
                  f'(n = {rho["n"]}; Spearman ρ = {rho["spearman_rho"]:.2f}, 95% CI {lo:.2f}–{hi:.2f}; '
                  'box = p25–p75, whiskers = 1.5 IQR)', fontsize=10.5)
     ax.legend(loc='lower right', fontsize=9)
@@ -154,7 +154,7 @@ def fig_ups_vs_frequency(groups: pd.DataFrame, out_dir: Path, dpi: int = 300):
     ax.set_ylim(6, 20)
     ax.set_xlabel(FREQ_AXIS)
     ax.set_ylabel(UPS_AXIS)
-    ax.set_title('Fig. 3. UPS score across AI-use levels with 95% bootstrap confidence intervals', fontsize=11)
+    ax.set_title('UPS score across AI-use levels with 95% bootstrap confidence intervals', fontsize=11)
     ax.legend(fontsize=8, loc='upper left')
     return save(fig, 'fig3_ups_vs_ai_frequency', out_dir, dpi)
 
@@ -186,7 +186,7 @@ def fig_effect_forest(assoc: list[dict], models: dict, out_dir: Path, dpi: int =
     ax.set_xlim(-0.05, 0.75)
     ax.set_ylim(-0.9, len(rows) - 0.3)
     ax.set_xlabel('Effect size (dimensionless; point estimate with 95% CI)')
-    ax.set_title('Fig. 4. Association estimates across main, sensitivity and adjusted analyses', fontsize=11)
+    ax.set_title('Association estimates across main, sensitivity and adjusted analyses', fontsize=11)
     return save(fig, 'fig4_effect_size_forest', out_dir, dpi)
 
 
@@ -221,10 +221,87 @@ def fig_latency_distribution(log: pd.DataFrame, out_dir: Path, dpi: int = 300):
     ax.set_xticklabels([str(n) for n in workloads])
     ax.set_xlabel('Workload size (survey records per run)')
     ax.set_ylabel('Pipeline latency per run (ms, log scale)')
-    ax.set_title('Fig. 5. Latency distributions per condition (box = p25–p75, whiskers = 1.5 IQR)\n'
+    ax.set_title('Latency distributions per condition (box = p25–p75, whiskers = 1.5 IQR)\n'
                  'with the discarded warm-up runs overlaid', fontsize=11)
     ax.legend(fontsize=8, loc='upper center', bbox_to_anchor=(0.5, -0.15), ncol=2, columnspacing=1.2)
     return save(fig, 'fig5_latency_distribution', out_dir, dpi)
+
+
+# --------------------------------------------------------------------------------------
+# Figure 6 - four-panel summary with (a)-(d) labels
+# --------------------------------------------------------------------------------------
+def fig_summary_panels(groups: pd.DataFrame, assoc: list[dict], models: dict, latency: pd.DataFrame,
+                       speed: pd.DataFrame, out_dir: Path, dpi: int = 300):
+    fig, axes = plt.subplots(2, 2, figsize=(10.5, 7.8))
+    (a, b), (c, d) = axes
+
+    # (a) median UPS per use level with 95% bootstrap CI, both samples
+    for sample, key, off, ls in [('main_cleaned_n285', 'main', -0.06, '-'),
+                                 ('sensitivity_b_raw_five_level', 'five_level', 0.06, ':')]:
+        g = groups[groups['sample'] == sample].sort_values('ai_frequency')
+        a.errorbar(g['ai_frequency'] + off, g['median'],
+                   yerr=[g['median'] - g['median_ci_low'], g['median_ci_high'] - g['median']],
+                   fmt=MARKER[key], linestyle=ls, color=COLOR[key], capsize=3,
+                   label='Main (n = 285)' if key == 'main' else 'Raw five-level (n = 327)')
+    a.set_xticks(range(5))
+    a.set_xticklabels(['0\nrarely/\nnever', '1\nmonthly', '2\nweekly', '3\nfew/week', '4\ndaily'], fontsize=8.5)
+    a.set_ylim(6, 20)
+    a.set_xlabel('AI-use frequency level')
+    a.set_ylabel('Median UPS score (points)')
+    a.legend(fontsize=8, loc='upper left')
+
+    # (b) effect sizes with 95% CI
+    rows = [('Main', assoc[0]['spearman_rho'], *assoc[0]['ci95_percentile_bootstrap'], 'main'),
+            ('Sens. A', assoc[1]['spearman_rho'], *assoc[1]['ci95_percentile_bootstrap'], 'main'),
+            ('Sens. B', assoc[2]['spearman_rho'], *assoc[2]['ci95_percentile_bootstrap'], 'five_level'),
+            ('Adj. β', models['proposed']['standardised_beta'], *models['proposed']['standardised_beta_ci95_hc3'], 'adjusted')]
+    for i, (label, est, lo, hi, key) in enumerate(rows):
+        y = len(rows) - 1 - i
+        b.errorbar(est, y, xerr=[[est - lo], [hi - est]], fmt=MARKER[key], color=COLOR[key], capsize=3, markersize=7)
+    b.axvline(0, color='0.3', linewidth=1.0)
+    b.axvline(0.309, color=COLOR['literature'], linewidth=1.0, linestyle='--', label='Abbas et al. (2024)')
+    b.set_yticks(range(len(rows)))
+    b.set_yticklabels([r[0] for r in rows][::-1])
+    b.set_xlim(-0.05, 0.55)
+    b.set_xlabel('Effect size (ρ or standardised β; dimensionless)')
+    b.legend(fontsize=8, loc='upper right')
+
+    # (c) p50 and p95 latency vs workload with 95% CI bands
+    for impl, g in latency.groupby('implementation'):
+        g = g.sort_values('n_records')
+        x = g['n_records'].to_numpy()
+        c.fill_between(x, g['p50_ci_low'], g['p50_ci_high'], color=COLOR[impl], alpha=0.25, linewidth=0)
+        c.plot(x, g['p50_ms'], marker=MARKER[impl], color=COLOR[impl], linestyle='-',
+               label=('Baseline loop' if impl == 'baseline_loop' else 'Vectorised') + ' p50')
+        c.plot(x, g['p95_ms'], marker=MARKER[impl], color=COLOR[impl], linestyle='--', markerfacecolor='white',
+               label=('Baseline loop' if impl == 'baseline_loop' else 'Vectorised') + ' p95')
+    c.set_xscale('log')
+    c.set_yscale('log')
+    c.set_xticks(sorted(latency['n_records'].unique()))
+    c.get_xaxis().set_major_formatter(matplotlib.ticker.ScalarFormatter())
+    c.xaxis.set_minor_locator(matplotlib.ticker.NullLocator())
+    c.set_xlabel('Workload (records per run, log scale)')
+    c.set_ylabel('Latency per run (ms, log scale)')
+    c.legend(fontsize=7.5, loc='lower right')
+
+    # (d) speed-up with 95% CI
+    s = speed.sort_values('n_records')
+    pos = np.arange(len(s))
+    d.bar(pos, s['speedup_p50'], color=(*COLOR['vectorized'], 0.35), edgecolor=COLOR['vectorized'], hatch='//', width=0.6)
+    d.errorbar(pos, s['speedup_p50'], yerr=[s['speedup_p50'] - s['speedup_ci_low'], s['speedup_ci_high'] - s['speedup_p50']],
+               fmt='none', ecolor='0.15', capsize=4)
+    d.axhline(1, color='0.3', linewidth=1.0, linestyle=':')
+    d.set_xticks(pos)
+    d.set_xticklabels([str(n) for n in s['n_records']])
+    d.set_xlabel('Workload (records per run)')
+    d.set_ylabel('Speed-up of p50 latency (×)')
+    d.set_ylim(0, max(s['speedup_ci_high']) * 1.12)
+
+    for ax, letter in zip([a, b, c, d], 'abcd'):
+        ax.text(-0.12, 1.03, f'({letter})', transform=ax.transAxes, fontsize=13, fontweight='bold', va='bottom')
+    fig.suptitle('Summary of the survey results (a, b) and of the pipeline benchmark (c, d)', fontsize=12)
+    fig.tight_layout(rect=(0, 0, 1, 0.96))
+    return save(fig, 'fig6_summary_panels', out_dir, dpi)
 
 
 def make_all(cfg: dict) -> list[Path]:
@@ -245,6 +322,8 @@ def make_all(cfg: dict) -> list[Path]:
     paths += fig_ups_vs_frequency(groups, out, dpi)
     paths += fig_effect_forest(assoc, results['survey']['models_main'], out, dpi)
     paths += fig_latency_distribution(log, out, dpi)
+    paths += fig_summary_panels(groups, assoc, results['survey']['models_main'], latency,
+                                pd.read_csv(proc / 'pipeline_speedup.csv'), out, dpi)
     return paths
 
 
