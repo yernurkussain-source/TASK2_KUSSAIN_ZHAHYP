@@ -44,6 +44,8 @@ Primary metric: Spearman ρ between AI-use frequency and UPS total, with n, asym
 
 Secondary metrics: Kruskal–Wallis H and ε²; per-level median, p25, p75, p95, p99 and mean ± SD with bootstrap CIs; median difference and Cliff's δ against the reference group with Holm-adjusted Mann–Whitney p.
 
+Diagnostics: Cronbach's α of the six UPS items (internal consistency); Shapiro–Wilk test of the regression residuals (normality, which decides the use of HC3 errors); Breusch–Pagan test (constant residual variance); standardised β of AI-use frequency, so that the estimate can be compared with published path coefficients such as Abbas et al. (2024).
+
 Baselines:
 
 1. Statistical null, ρ = 0.
@@ -65,6 +67,9 @@ Pipeline guardrails: unexpected error rate = 0; every injected invalid batch rej
 3. Collect benchmark timings with warm-up and benchmark phases (`src/collector.py`).
 4. Aggregate statistics, write `data/processed/metrics_summary.csv` and `reports/results.json` (`src/process_data.py`, `run_analysis`).
 5. Render figures (`src/visualize.py`) and execute `notebooks/01_data_analysis.ipynb`.
+6. Build the results section and the PDF report from the outputs (`src/build_report.py`, `reports/latex/`).
+
+The formal definitions of every quantity above, the loss function of the regression, a C4 view of the pipeline with its metric collection points and a STRIDE matrix are in `docs/domain_model.md`.
 
 ## Validity
 
