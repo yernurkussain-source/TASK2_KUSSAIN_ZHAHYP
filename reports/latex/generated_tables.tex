@@ -1,0 +1,98 @@
+\begin{table}[!htbp]
+\centering
+\caption{Primary association between academic GenAI-use frequency and UPS total (Eqs.~\ref{eq:spearman}--\ref{eq:perm}). Intervals are 95\% percentile bootstrap intervals ($B=10\,000$); $H$ and $\varepsilon^2$ come from the Kruskal--Wallis test across use levels (Eq.~\ref{eq:kw}). No column has a ``better'' direction, so no value is highlighted.}
+\label{tab:association}
+\footnotesize\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}lrlrrrr@{}}
+\toprule
+Analysis & $n$ & $\hat\rho_s$ [95\% CI] & $p_{\text{asym}}$ & $p_{\text{perm}}$ & $H$ & $\varepsilon^2$\\
+\midrule
+
+Main: supplied cleaned workbook & 285 & 0.283 [0.177, 0.384] & $1.2\times10^{-6}$ & $<0.001$ & 26.4 & 0.093\\
+
+Sensitivity A: raw workbook, independent rules & 303 & 0.260 [0.155, 0.363] & $4.4\times10^{-6}$ & $<0.001$ & 23.7 & 0.078\\
+
+Sensitivity B: raw workbook, five levels & 327 & 0.305 [0.205, 0.399] & $1.8\times10^{-8}$ & $<0.001$ & 34.0 & 0.104\\
+
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[!htbp]
+\centering
+\caption{UPS score by AI-use level and comparison with the lowest-use reference group. Values are Median (p25--p75) and Mean $\pm$ SD in UPS points. Median differences and Cliff's $\delta$ (Eq.~\ref{eq:cliff}) carry 95\% bootstrap intervals; $p$ values are Holm-adjusted Mann--Whitney tests. The largest $\delta$ in each sample is in bold.}
+\label{tab:groups}
+\footnotesize\setlength{\tabcolsep}{3.5pt}
+\begin{tabular}{@{}lrllll r@{}}
+\toprule
+Use level & $n$ & Median (p25--p75) & Mean $\pm$ SD & $\Delta$ median [95\% CI] & $\delta$ [95\% CI] & $p_{\text{Holm}}$\\
+\midrule
+
+\multicolumn{7}{@{}l}{\emph{Main sample ($n=285$), reference = level 1}}\\
+
+\quad 1: Few times a month & 81 & 12.0 (9--14) & 12.01 $\pm$ 4.29 & reference & reference & \\
+
+\quad 2: Once a week & 39 & 14.0 (9--16) & 13.38 $\pm$ 4.23 & $+2.0$ [$+0.0$, $+5.0$] & 0.21 [-0.01, 0.42] & 0.067\\
+
+\quad 3: Few times a week & 129 & 16.0 (12--19) & 15.24 $\pm$ 4.78 & $+4.0$ [$+2.0$, $+6.0$] & 0.39 [0.23, 0.53] & $<0.001$\\
+
+\quad 4: Every day & 36 & 15.5 (12--17) & 14.94 $\pm$ 3.77 & $+3.5$ [$+2.0$, $+6.0$] & \textbf{0.41 [0.21, 0.60]} & $<0.001$\\
+
+\multicolumn{7}{@{}l}{\emph{Sensitivity B ($n=327$), reference = level 0}}\\
+
+\quad 0: Rarely/never & 24 & 10.5 (7--14) & 10.83 $\pm$ 4.11 & reference & reference & \\
+
+\quad 1: Few times a month & 89 & 12.0 (9--15) & 12.29 $\pm$ 4.41 & $+1.5$ [$-2.0$, $+4.0$] & 0.19 [-0.08, 0.45] & 0.159\\
+
+\quad 2: Once a week & 41 & 14.0 (9--16) & 13.44 $\pm$ 4.15 & $+3.5$ [$+0.0$, $+6.5$] & 0.36 [0.09, 0.62] & 0.032\\
+
+\quad 3: Few times a week & 133 & 15.0 (12--19) & 15.20 $\pm$ 4.78 & $+4.5$ [$+2.0$, $+8.0$] & 0.51 [0.29, 0.69] & $<0.001$\\
+
+\quad 4: Every day & 40 & 15.5 (12--17) & 14.90 $\pm$ 3.64 & $+5.0$ [$+2.0$, $+8.0$] & \textbf{0.54 [0.28, 0.76]} & $<0.001$\\
+
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[t]
+\centering
+\caption{Baseline model $M_0$ versus proposed model $M_1$ (Eqs.~\ref{eq:models}--\ref{eq:fit}), $n=285$. The better value of each criterion is in bold. Nested $F=24.9$, $p <0.001$; $\hat\beta=1.30$ UPS points per level (HC3 95\% CI 0.81 to 1.79).}
+\label{tab:models}
+\small
+\begin{tabular}{@{}llrrrr@{}}
+\toprule
+Model & Predictors & $R^2$ & adj.\ $R^2$ & AIC & BIC\\
+\midrule
+$M_0$ baseline & age, gender, education & 0.004 & -0.006 & 1691.0 & 1705.6\\
+$M_1$ proposed & $M_0$ + AI-use frequency & \textbf{0.086} & \textbf{0.072} & \textbf{1668.7} & \textbf{1687.0}\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[!htbp]
+\centering
+\caption{Pipeline latency per run (ms) after warm-up filtering, successful runs only (Eqs.~\ref{eq:bench}--\ref{eq:speedup}). Median (p25--p75) and tail percentiles for the Task~2 loop bootstrap (baseline) and the vectorised bootstrap (proposed), with the p50 speed-up $\mathcal{S}$ and its 95\% bootstrap interval. The lower (better) latency in each row is in bold.}
+\label{tab:latency}
+\footnotesize\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}r ll ll l@{}}
+\toprule
+& \multicolumn{2}{c}{Baseline (Task 2 loop)} & \multicolumn{2}{c}{Proposed (vectorised)} & \\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}
+$w$ & p50 (p25--p75) & p95 / p99 & p50 (p25--p75) & p95 / p99 & $\mathcal{S}$ [95\% CI]\\
+\midrule
+
+50 & 374.6 (360.4--393.1) & 430.7 / 435.2 & \textbf{13.5} (13.1--14.1) & \textbf{17.9 / 19.6} & 27.80 [27.02, 28.92]\\
+
+100 & 398.5 (360.1--429.9) & 501.9 / 533.3 & \textbf{19.5} (18.9--21.0) & \textbf{29.3 / 29.9} & 20.44 [18.58, 21.76]\\
+
+285 & 456.4 (445.9--483.3) & 524.8 / 551.5 & \textbf{47.2} (45.5--51.0) & \textbf{63.7 / 65.6} & 9.67 [9.27, 10.31]\\
+
+500 & 496.2 (486.8--525.8) & 595.5 / 675.7 & \textbf{77.3} (74.7--78.5) & \textbf{85.6 / 87.6} & 6.41 [6.32, 6.67]\\
+
+1000 & 648.8 (622.8--684.4) & 699.1 / 753.2 & \textbf{151.2} (144.7--155.8) & \textbf{167.8 / 171.3} & 4.29 [4.13, 4.53]\\
+
+2000 & 905.3 (856.3--943.9) & 1065.0 / 1107.4 & \textbf{277.3} (252.6--293.5) & \textbf{324.7 / 348.1} & 3.26 [3.10, 3.41]\\
+
+\bottomrule
+\end{tabular}
+\end{table}
