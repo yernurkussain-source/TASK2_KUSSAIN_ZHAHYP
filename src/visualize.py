@@ -43,7 +43,10 @@ def set_style() -> None:
     plt.rcParams.update({'axes.edgecolor': '0.35', 'grid.color': '0.88', 'grid.linewidth': 0.6,
                          'lines.linewidth': 2.0, 'lines.markersize': 7, 'savefig.bbox': 'tight',
                          'legend.frameon': True, 'legend.framealpha': 0.95, 'pdf.fonttype': 42,
-                         'svg.hashsalt': 'task3', 'figure.dpi': 100})
+                         'svg.hashsalt': 'task3', 'figure.dpi': 100,
+                         # Matplotlib's bundled font: seaborn would otherwise pick Arial where it is
+                         # installed, and Arial has no subscript zero (the H₀ label in Figure 4).
+                         'font.family': 'sans-serif', 'font.sans-serif': ['DejaVu Sans']})
 
 
 def save(fig, name: str, out_dir: Path, dpi: int = 300) -> list[Path]:
@@ -264,7 +267,7 @@ def fig_summary_panels(groups: pd.DataFrame, assoc: list[dict], models: dict, la
     b.set_yticklabels([r[0] for r in rows][::-1])
     b.set_xlim(-0.05, 0.55)
     b.set_xlabel('Effect size (ρ or standardised β; dimensionless)')
-    b.legend(fontsize=8, loc='upper right')
+    b.legend(fontsize=8, loc='center right')  # between rows, so no interval end is hidden
 
     # (c) p50 and p95 latency vs workload with 95% CI bands
     for impl, g in latency.groupby('implementation'):

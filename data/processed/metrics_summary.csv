@@ -79,10 +79,10 @@ survey,sensitivity_b_raw_five_level,4:Every day,ups_p95,21.0,,,40.0,UPS points
 survey,sensitivity_b_raw_five_level,4:Every day,ups_p99,22.83,,,40.0,UPS points
 survey,main_cleaned_n285,2 vs 1,median_difference,2.0,0.0,5.0,39.0,UPS points
 survey,main_cleaned_n285,2 vs 1,cliffs_delta,0.20639442861665083,-0.012037037037037015,0.41912788857233296,39.0,dimensionless
-survey,main_cleaned_n285,2 vs 1,p_value_holm,0.0671576744248977,,,39.0,
+survey,main_cleaned_n285,2 vs 1,p_value_holm,0.06715767442489767,,,39.0,
 survey,main_cleaned_n285,3 vs 1,median_difference,4.0,2.0,6.0,129.0,UPS points
 survey,main_cleaned_n285,3 vs 1,cliffs_delta,0.3859699492774428,0.23465642645229223,0.5295339266915493,129.0,dimensionless
-survey,main_cleaned_n285,3 vs 1,p_value_holm,7.3272771340378806e-06,,,129.0,
+survey,main_cleaned_n285,3 vs 1,p_value_holm,7.327277134037879e-06,,,129.0,
 survey,main_cleaned_n285,4 vs 1,median_difference,3.5,2.0,6.0,36.0,UPS points
 survey,main_cleaned_n285,4 vs 1,cliffs_delta,0.41460905349794236,0.21433470507544583,0.5997942386831276,36.0,dimensionless
 survey,main_cleaned_n285,4 vs 1,p_value_holm,0.0006913288960499207,,,36.0,
@@ -94,14 +94,14 @@ survey,sensitivity_b_raw_five_level,2 vs 0,cliffs_delta,0.3597560975609756,0.086
 survey,sensitivity_b_raw_five_level,2 vs 0,p_value_holm,0.032138564472125625,,,41.0,
 survey,sensitivity_b_raw_five_level,3 vs 0,median_difference,4.5,2.0,8.0,133.0,UPS points
 survey,sensitivity_b_raw_five_level,3 vs 0,cliffs_delta,0.5075187969924813,0.2932252506265664,0.693922305764411,133.0,dimensionless
-survey,sensitivity_b_raw_five_level,3 vs 0,p_value_holm,0.0003046006153235564,,,133.0,
+survey,sensitivity_b_raw_five_level,3 vs 0,p_value_holm,0.00030460061532355635,,,133.0,
 survey,sensitivity_b_raw_five_level,4 vs 0,median_difference,5.0,2.0,8.0,40.0,UPS points
 survey,sensitivity_b_raw_five_level,4 vs 0,cliffs_delta,0.54375,0.28333333333333344,0.7625,40.0,dimensionless
-survey,sensitivity_b_raw_five_level,4 vs 0,p_value_holm,0.000857959254827665,,,40.0,
-survey,models_main,baseline_covariates,r2,0.004142874974597199,,,285.0,proportion
-survey,models_main,proposed_plus_frequency,r2,0.08552598960464142,,,285.0,proportion
-survey,models_main,proposed_minus_baseline,delta_r2,0.08138311463004422,,,285.0,proportion
-survey,models_main,proposed_plus_frequency,beta_ai_frequency,1.3022072319093272,0.8133135751354736,1.7911008886831807,285.0,UPS points per frequency level
+survey,sensitivity_b_raw_five_level,4 vs 0,p_value_holm,0.0008579592548276648,,,40.0,
+survey,models_main,baseline_covariates,r2,0.004142874974597421,,,285.0,proportion
+survey,models_main,proposed_plus_frequency,r2,0.0855259896046413,,,285.0,proportion
+survey,models_main,proposed_minus_baseline,delta_r2,0.08138311463004388,,,285.0,proportion
+survey,models_main,proposed_plus_frequency,beta_ai_frequency,1.3022072319093225,0.813313575135469,1.791100888683176,285.0,UPS points per frequency level
 pipeline,latency,baseline_loop|n=50,p50_ms,374.605318,369.022255,387.06672,27.0,ms
 pipeline,latency,baseline_loop|n=50,p95_ms,430.7291462,397.763623,436.106587,27.0,ms
 pipeline,latency,baseline_loop|n=50,p99_ms,435.16899606,,,27.0,ms

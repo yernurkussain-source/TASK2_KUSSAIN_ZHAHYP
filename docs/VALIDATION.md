@@ -64,3 +64,12 @@ These checks covered the software pipeline only. No research hypothesis was test
 * `docker build -t task3-kussain-zhakyp .` completed on Docker Desktop (Linux containers) from `python:3.12.14-slim` (digest `f77ac9e4…e51f`), with dependencies installed from `requirements-lock.txt` and the unit-test step passing inside the image.
 * `docker run --rm task3-kussain-zhakyp` ran the pipeline from the committed processed CSVs and benchmark log in 10.3 s: n = 285, ρ = 0.2829, 95% CI [0.1771, 0.3835], p = 1.211 × 10⁻⁶, identical to `reports/results.json`. It wrote all six figures (PDF and PNG), `reports/paper_section_4.md` and the LaTeX inputs inside the container.
 * The workbooks are excluded by `.dockerignore`, so the container does not re-code the survey data; that step is covered by the Windows test run above.
+
+### 2026-11-03, check of the tagged release (preparation environment)
+
+* The tag `v1.0-task3` was cloned from GitHub into an empty folder; the 29 tests passed and the pipeline ran. The check found three problems, now fixed:
+  * Figure 4 showed an empty box instead of the subscript in "H₀" when rendered on macOS, because seaborn picks Arial where it is installed and Arial has no subscript zero. `src/visualize.py` now uses DejaVu Sans, which ships with Matplotlib, so the figures look the same on Windows, macOS, Linux and in Docker. A new test renders Figure 4 and fails on any missing-glyph warning.
+  * In Figure 6(b) the legend covered the upper end of the main interval; it now sits between the rows.
+  * `reports/results.json` still held the hash of an earlier `configs/research.yaml` (the file had changed only in a comment). It was regenerated, and `config_sha256` now matches the committed config.
+* The notebook had been executed with Python 3.14.2 and its output contained the font warnings and a local path; it was executed again (13 code cells, in order, no errors or warnings).
+* After the fixes, 30 unit tests passed (Python 3.13.18, Linux, workbooks present). All six figures were regenerated and checked visually, and the report was recompiled (9 pages, no warnings, all fonts embedded). The reported results are unchanged; the processed CSVs differ from the previous version only in the last floating-point digits.

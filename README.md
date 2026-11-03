@@ -220,7 +220,7 @@ src/visualize.py               Figure module
 src/run_pipeline.py            One-command entry point
 src/build_report.py            Builds the results section and LaTeX inputs from the outputs
 src/benchmark.py               Task 2 pipeline (unchanged; the baseline implementation)
-tests/                         29 unit tests
+tests/                         30 unit tests
 ```
 
 ## Citation and licence

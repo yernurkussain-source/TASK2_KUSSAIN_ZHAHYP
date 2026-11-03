@@ -3,6 +3,7 @@ import re
 import sys
 import tempfile
 import unittest
+import warnings
 from pathlib import Path
 
 import pandas as pd
@@ -59,6 +60,15 @@ class SummaryFigureTests(unittest.TestCase):
             self.assertEqual(sorted(p.suffix for p in paths), ['.pdf', '.png'])
             with Image.open(paths[1]) as png:
                 self.assertGreaterEqual(round(png.info['dpi'][0]), 300)
+
+    def test_figure_text_has_no_missing_glyphs(self):
+        res = json.loads((pdp.ROOT / CFG['reports']['results_json']).read_text(encoding='utf-8'))
+        visualize.set_style()
+        with tempfile.TemporaryDirectory() as tmp, warnings.catch_warnings(record=True) as caught:
+            warnings.simplefilter('always')
+            visualize.fig_effect_forest(res['survey']['association'], res['survey']['models_main'],
+                                        Path(tmp), 100)
+        self.assertEqual([str(w.message) for w in caught if 'missing from font' in str(w.message)], [])
 
 
 if __name__ == '__main__':
