@@ -2,7 +2,9 @@
 
 **Authors:** Ernur Kussain and Zhanassyl Zhakyp
 
-**Stage:** Task 3, research results and data analysis. Weeks 7 and 8 (data collection, processing, statistics and figures) are complete; the Week 9 domain model will be added as `docs/domain_model.md`.
+**Release:** `v1.0-task3`
+
+**Report:** [`reports/TASK3_KUSSAIN_ZHAKYP_REPORT.pdf`](reports/TASK3_KUSSAIN_ZHAKYP_REPORT.pdf) (LaTeX source in `reports/latex/`), with the results section as Markdown in [`reports/paper_section_4.md`](reports/paper_section_4.md).
 
 ## Overview
 
@@ -11,7 +13,7 @@ This repository holds a reproducible secondary analysis of a public Indian highe
 The work has two layers:
 
 1. Survey layer (the research question). The two public workbooks are coded, eligibility rules are applied, the Unintentional Procrastination Scale (UPS) is scored and audited, and the association is estimated with rank statistics, reference-group comparisons and a baseline-versus-proposed regression model.
-2. Pipeline layer (the measurement tool). The Week 7 collector times the Task 2 analysis function under six workloads, separates warm-up from benchmark runs, injects invalid batches to track errors as a guardrail metric, and compares the Task 2 loop bootstrap with a vectorised implementation that returns identical estimates.
+2. Pipeline layer (the measurement tool). The collector times the Task 2 analysis function under six workloads, separates warm-up from benchmark runs, injects invalid batches to track errors as a guardrail metric, and compares the Task 2 loop bootstrap with a vectorised implementation that returns identical estimates.
 
 ## Research question and hypotheses
 
@@ -101,7 +103,7 @@ Age, gender and education together explain almost none of the variance in UPS. A
 
 ![Fig. 4: effect sizes across analyses](reports/figures/fig4_effect_size_forest.png)
 
-### Pipeline benchmark (Weeks 7 and 8)
+### Pipeline benchmark
 
 The log `data/raw/test_run.jsonl` has 420 records: 60 warm-up records were discarded and 360 benchmark records were analysed. It was collected on Intel(R) Xeon(R) Processor @ 2.80GHz (2 logical CPUs, 7.84 GB RAM), Python 3.12.3, Linux-6.18.44-fc-v180-x86_64-with-glibc2.39.
 
@@ -126,6 +128,10 @@ In 155 paired runs on identical inputs, the two implementations returned the sam
 
 ![Fig. 5: latency distributions with warm-up runs](reports/figures/fig5_latency_distribution.png)
 
+![Fig. 6: four-panel summary of survey and benchmark results](reports/figures/fig6_summary_panels.png)
+
+Figure 6 combines the main results: (a) median UPS by use level, (b) effect sizes, (c) latency against workload and (d) the speed-up, each with 95% bootstrap intervals.
+
 ### Discussion
 
 In this sample, more frequent academic GenAI use goes with more unintentional procrastination. The association is small to moderate (ρ ≈ 0.28, 95% CI [0.18, 0.38]), and the two raw-file analyses give similar estimates (ρ = 0.26 and 0.31), so the authors' unexplained exclusions do not appear to drive it. Our standardised β of 0.29 is close to the β = 0.309 that Abbas et al. (2024) report for ChatGPT use and general procrastination. That study used a different scale, model and population, so the agreement is only a consistency check.
@@ -134,7 +140,13 @@ Several limits apply. The data are cross-sectional self-reports, so the directio
 
 ## Domain model
 
-Planned for Week 9 (`docs/domain_model.md`).
+[`docs/domain_model.md`](docs/domain_model.md) follows the ML/AI track: the problem is stated in terms of a target $y$ (UPS total), an exposure $x$ (AI-use frequency) and covariates $\mathbf{z}$; it defines the squared-error loss $\mathcal{L}$ of the baseline and proposed regression models, every metric used here (Spearman ρ, bootstrap interval, permutation p-value, Cliff's δ, ΔR², p50/p95/p99, speed-up $\mathcal{S}$, error and rejection rates) and the constraints the analysis must satisfy, with a notation table. It also contains a C4 container diagram of the pipeline with its six metric collection points (below) and a STRIDE threat matrix for the data flow.
+
+![C4 container view with metric collection points](reports/figures/domain_c4_container.png)
+
+## Relevance to Kazakhstan
+
+No Kazakhstani study yet measures GenAI use together with procrastination, and no Kazakh or Russian version of the UPS exists. Section 5 of the report sets out what is known (prevalence of student GenAI use, national AI policy, local procrastination research), why the Indian estimate may not transfer directly, and a proposed three-wave follow-up design. The underlying literature review with dated sources is in [`reports/kazakhstan_context.md`](reports/kazakhstan_context.md).
 
 ## System requirements
 
@@ -161,6 +173,13 @@ To re-execute the notebook from top to bottom:
 jupyter nbconvert --to notebook --execute --inplace notebooks/01_data_analysis.ipynb
 ```
 
+To rebuild the results section and the PDF report from the computed outputs (a TeX Live installation with `booktabs`, `placeins` and `mathptmx` is needed for the PDF):
+
+```bash
+python src/build_report.py
+latexmk -pdf -cd reports/latex/task3_report.tex
+```
+
 Optional steps:
 
 ```bash
@@ -181,21 +200,27 @@ docker run --rm --cpus=2 --memory=2g -v "$PWD/data:/app/data" task3-kussain-zhak
 ```text
 configs/research.yaml          All parameters: paths, hashes, seed, resamples, workloads, edge cases
 configs/sample.json            Task 2 synthetic smoke-test configuration
-data/raw/test_run.jsonl        Week 7 benchmark log (warm-up and benchmark phases)
+data/raw/test_run.jsonl        Benchmark log (warm-up and benchmark phases)
 data/raw/test_run_meta.json    Hardware, OS and package metadata of that run
 data/processed/                Coded survey data, exclusion flow, summary tables, metrics_summary.csv
 data/sample/                   Ten synthetic rows used by the Task 2 smoke test
+docs/domain_model.md           Domain model: LaTeX formalisation, C4 view, STRIDE matrix
 docs/                          Methodology card, data dictionary, validation record
 notebooks/01_data_analysis.ipynb   Executed analysis notebook
-reports/figures/               fig1 to fig5 as PDF and 300 DPI PNG
+reports/figures/               fig1 to fig6 as PDF and 300 DPI PNG; C4 diagram
 reports/results.json           All estimates, guardrails, hashes and package versions
+reports/paper_section_4.md     Results section with LaTeX formulas, tables and figure captions
+reports/latex/                 LaTeX report source and generated tables/values
+reports/TASK3_KUSSAIN_ZHAKYP_REPORT.pdf   Compiled report for submission
+reports/kazakhstan_context.md             Literature review on the Kazakhstani context
 src/fetch_data.py              Download and hash check of the source workbooks
 src/process_data.py            Coding, eligibility, statistics and benchmark aggregation
-src/collector.py               Week 7 measurement harness
+src/collector.py               Measurement harness
 src/visualize.py               Figure module
 src/run_pipeline.py            One-command entry point
+src/build_report.py            Builds the results section and LaTeX inputs from the outputs
 src/benchmark.py               Task 2 pipeline (unchanged; the baseline implementation)
-tests/                         24 unit tests
+tests/                         29 unit tests
 ```
 
 ## Citation and licence
