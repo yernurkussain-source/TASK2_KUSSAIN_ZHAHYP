@@ -9,7 +9,7 @@ This section reports the results of the Task 3 analysis. Equation numbers refer 
 The main sample has $n = {{nMain}}$ bachelor's and master's respondents from the supplied cleaned workbook (Sharma et al., 2026). Two sensitivity samples are drawn from the raw workbook with our own rules: sensitivity A ($n = {{nA}}$) keeps academic GenAI users, and sensitivity B ($n = {{nB}}$) also keeps respondents who use GenAI rarely or never, coded as level 0. The exposure $x_i$ is the ordinal use frequency and the target $y_i$ is the six-item Unintentional Procrastination Scale total (Eq. 1). The primary metric is Spearman's coefficient
 
 ```math
-\hat\rho_s = \operatorname{corr}\bigl(R(\mathbf{x}),\, R(\mathbf{y})\bigr), \qquad H_0:\ \rho_s = 0,
+\hat\rho_s = \mathrm{corr}\bigl(R(\mathbf{x}),\, R(\mathbf{y})\bigr), \qquad H_0:\ \rho_s = 0,
 ```
 
 with a 95% percentile bootstrap interval over $B = 10\,000$ paired resamples (Eq. 4) and a permutation p-value (Eq. 6). The supplementary model compares the covariates-only baseline $M_0$ with the proposed model $M_1$, which adds $x_i$ (Eqs. 7 to 9). The pipeline benchmark times the Task 2 analysis on workloads of 50 to 2,000 records; latency percentiles exclude warm-up runs (Eqs. 15 and 16), and the speed-up is

@@ -23,7 +23,7 @@ The data set is
 The target is the sum of six item responses:
 
 ```math
-y_i \;=\; \sum_{k=1}^{6} \underbrace{u_{ik}}_{\in\{1,2,3,4\}} \;\in\; \{6, 7, \dots, 24\}. \tag{1}
+y_i \;=\; \sum_{k=1}^{6} u_{ik}, \qquad u_{ik} \in \{1,2,3,4\}, \qquad y_i \in \{6, 7, \dots, 24\}. \qquad (1)
 ```
 
 Implemented in `process_data.code_frame` and audited against the supplied totals in `process_data.prepare_cleaned` (300 of 300 equal).
@@ -66,11 +66,11 @@ Spearman's coefficient is the Pearson correlation of the average ranks:
 
 ```math
 \hat\rho_s \;=\; \frac{\sum_{i=1}^{n}\bigl(R(\mathbf{x})_i - \bar R_x\bigr)\bigl(R(\mathbf{y})_i - \bar R_y\bigr)}
-{\sqrt{\sum_{i=1}^{n}\bigl(R(\mathbf{x})_i - \bar R_x\bigr)^2}\;\sqrt{\sum_{i=1}^{n}\bigl(R(\mathbf{y})_i - \bar R_y\bigr)^2}} . \tag{2}
+{\sqrt{\sum_{i=1}^{n}\bigl(R(\mathbf{x})_i - \bar R_x\bigr)^2}\;\sqrt{\sum_{i=1}^{n}\bigl(R(\mathbf{y})_i - \bar R_y\bigr)^2}} . \qquad (2)
 ```
 
 ```math
-H_0:\ \rho_s = 0 \qquad\text{vs.}\qquad H_1:\ \rho_s \neq 0, \qquad \alpha = 0.05 \text{ (two-sided)}. \tag{3}
+H_0:\ \rho_s = 0 \qquad\text{vs.}\qquad H_1:\ \rho_s \neq 0, \qquad \alpha = 0.05 \text{ (two-sided)}. \qquad (3)
 ```
 
 Decision rule: reject $H_0$ when $p < \alpha$ and every guardrail in Section 5 holds. Implemented in `process_data.association_block`.
@@ -82,11 +82,11 @@ For $b = 1, \dots, B$ the index vector $I_b$ is drawn uniformly with replacement
 ```math
 \hat\rho^{*}_{b} = \hat\rho_s\bigl(\mathbf{x}_{I_b}, \mathbf{y}_{I_b}\bigr), \qquad
 \mathrm{CI}_{95\%} = \Bigl[\,Q_{0.025}\bigl(\{\hat\rho^{*}_{b}\}_{b \in \mathcal{B}_{\text{valid}}}\bigr),\;
-Q_{0.975}\bigl(\{\hat\rho^{*}_{b}\}_{b \in \mathcal{B}_{\text{valid}}}\bigr)\Bigr]. \tag{4}
+Q_{0.975}\bigl(\{\hat\rho^{*}_{b}\}_{b \in \mathcal{B}_{\text{valid}}}\bigr)\Bigr]. \qquad (4)
 ```
 
 ```math
-v = \frac{|\mathcal{B}_{\text{valid}}|}{B} \;\ge\; 0.95 . \tag{5}
+v = \frac{|\mathcal{B}_{\text{valid}}|}{B} \;\ge\; 0.95 . \qquad (5)
 ```
 
 Implemented twice with identical resample indices: `benchmark.association` (Task 2 loop, the engineering baseline) and `process_data.spearman_bootstrap` (vectorised).
@@ -96,7 +96,7 @@ Implemented twice with identical resample indices: `benchmark.association` (Task
 With $\pi_b$ a random permutation of $\{1,\dots,n\}$:
 
 ```math
-p_{\text{perm}} \;=\; \frac{1 + \sum_{b=1}^{B} \mathbb{1}\bigl[\,|\hat\rho_s(\mathbf{x}, \mathbf{y}_{\pi_b})| \ge |\hat\rho_s(\mathbf{x}, \mathbf{y})|\,\bigr]}{B + 1}. \tag{6}
+p_{\text{perm}} \;=\; \frac{1 + \sum_{b=1}^{B} \mathbb{1}\bigl[\,|\hat\rho_s(\mathbf{x}, \mathbf{y}_{\pi_b})| \ge |\hat\rho_s(\mathbf{x}, \mathbf{y})|\,\bigr]}{B + 1}. \qquad (6)
 ```
 
 The smallest attainable value is $1/(B+1) \approx 10^{-4}$. Implemented in `process_data.permutation_p_spearman`.
@@ -107,15 +107,19 @@ The supplementary model is a linear regression fitted by ordinary least squares.
 
 ```math
 M_0:\; y_i = \mathbf{z}_i^{\top}\gamma + \varepsilon_i, \qquad
-M_1:\; y_i = \mathbf{z}_i^{\top}\gamma + \beta\,x_i + \varepsilon_i . \tag{7}
+M_1:\; y_i = \mathbf{z}_i^{\top}\gamma + \beta\,x_i + \varepsilon_i . \qquad (7)
 ```
 
-The loss that is minimised is the mean squared error:
+The loss that is minimised is the mean squared error between the observed UPS $y_i$ and the predicted UPS $\hat y_i$:
 
 ```math
-\mathcal{L}(\boldsymbol\theta) \;=\; \frac{1}{n}\sum_{i=1}^{n}\Bigl(\,\underbrace{y_i}_{\text{observed UPS}} - \underbrace{\mathbf{z}_i^{\top}\gamma - \beta x_i}_{\text{predicted UPS } \hat y_i}\Bigr)^{2},
-\qquad
-\hat{\boldsymbol\theta} = \arg\min_{\boldsymbol\theta}\, \mathcal{L}(\boldsymbol\theta) = (\mathbf{X}_1^{\top}\mathbf{X}_1)^{-1}\mathbf{X}_1^{\top}\mathbf{y}. \tag{8}
+\mathcal{L}(\boldsymbol\theta) \;=\; \frac{1}{n}\sum_{i=1}^{n}\bigl(y_i - \hat y_i\bigr)^{2}, \qquad \hat y_i = \mathbf{z}_i^{\top}\gamma + \beta x_i . \qquad (8)
+```
+
+The parameters that minimise it are
+
+```math
+\hat{\boldsymbol\theta} = \arg\min_{\boldsymbol\theta}\, \mathcal{L}(\boldsymbol\theta) = (\mathbf{X}_1^{\top}\mathbf{X}_1)^{-1}\mathbf{X}_1^{\top}\mathbf{y}.
 ```
 
 Why squared error is acceptable here: UPS is bounded in $[6, 24]$, so no respondent can pull the fit with an extreme value, and the model is only supplementary. The primary metric, Eq. (2), works on ranks and is insensitive to outliers. A mean absolute error loss would estimate a conditional median instead of a conditional mean; it was not fitted.
@@ -125,14 +129,14 @@ Model comparison:
 ```math
 R^2_m = 1 - \frac{\mathrm{SSR}_m}{\sum_i (y_i - \bar y)^2}, \qquad
 \Delta R^2 = R^2_{1} - R^2_{0}, \qquad
-F = \frac{(\mathrm{SSR}_0 - \mathrm{SSR}_1)/1}{\mathrm{SSR}_1/(n - q - 2)} . \tag{9}
+F = \frac{(\mathrm{SSR}_0 - \mathrm{SSR}_1)/1}{\mathrm{SSR}_1/(n - q - 2)} . \qquad (9)
 ```
 
 Because the residuals are not normal (Shapiro–Wilk $p = 0.001$), the interval for $\beta$ uses the HC3 covariance estimator, with $e_i$ the residuals and $h_{ii}$ the leverages:
 
 ```math
 \widehat{\mathrm{Var}}_{\text{HC3}}(\hat{\boldsymbol\theta}) = (\mathbf{X}_1^{\top}\mathbf{X}_1)^{-1}\,
-\mathbf{X}_1^{\top}\operatorname{diag}\!\Bigl(\frac{e_i^{2}}{(1-h_{ii})^{2}}\Bigr)\mathbf{X}_1\,(\mathbf{X}_1^{\top}\mathbf{X}_1)^{-1}. \tag{10}
+\mathbf{X}_1^{\top}\mathrm{diag}\!\Bigl(\frac{e_i^{2}}{(1-h_{ii})^{2}}\Bigr)\mathbf{X}_1\,(\mathbf{X}_1^{\top}\mathbf{X}_1)^{-1}. \qquad (10)
 ```
 
 The standardised coefficient $\beta_{\text{std}} = \beta\, s_x / s_y$ makes the estimate comparable with published path coefficients. Implemented in `process_data.ols_models`.
@@ -142,13 +146,13 @@ The standardised coefficient $\beta_{\text{std}} = \beta\, s_x / s_y$ makes the 
 Kruskal–Wallis across the $g$ use levels, with $\bar R_\ell$ the mean rank of $y$ in $G_\ell$ and $n_\ell = |G_\ell|$ (tie correction omitted from the display):
 
 ```math
-H = \frac{12}{n(n+1)} \sum_{\ell=1}^{g} n_\ell \bar R_\ell^{\,2} - 3(n+1), \qquad \varepsilon^2 = \frac{H}{n-1}. \tag{11}
+H = \frac{12}{n(n+1)} \sum_{\ell=1}^{g} n_\ell \bar R_\ell^{\,2} - 3(n+1), \qquad \varepsilon^2 = \frac{H}{n-1}. \qquad (11)
 ```
 
 Cliff's δ of level $\ell$ against the reference level $\ell_0$:
 
 ```math
-\delta_{\ell} = \frac{1}{|G_\ell|\,|G_{\ell_0}|} \sum_{i \in G_\ell} \sum_{j \in G_{\ell_0}} \operatorname{sign}(y_i - y_j) \;\in\; [-1, 1]. \tag{12}
+\delta_{\ell} = \frac{1}{|G_\ell|\,|G_{\ell_0}|} \sum_{i \in G_\ell} \sum_{j \in G_{\ell_0}} \mathrm{sign}(y_i - y_j) \;\in\; [-1, 1]. \qquad (12)
 ```
 
 The $m$ Mann–Whitney p-values are Holm-adjusted: with ordered $p_{(1)} \le \dots \le p_{(m)}$, $\tilde p_{(k)} = \max_{j \le k} \min\{1, (m - j + 1)\,p_{(j)}\}$.
@@ -156,13 +160,13 @@ The $m$ Mann–Whitney p-values are Holm-adjusted: with ordered $p_{(1)} \le \do
 Internal consistency of the six UPS items:
 
 ```math
-\alpha_{\text{C}} = \frac{6}{5}\Bigl(1 - \frac{\sum_{k=1}^{6} s^{2}_{u_k}}{s^{2}_{y}}\Bigr). \tag{13}
+\alpha_{\text{C}} = \frac{6}{5}\Bigl(1 - \frac{\sum_{k=1}^{6} s^{2}_{u_k}}{s^{2}_{y}}\Bigr). \qquad (13)
 ```
 
 The analysis is valid only inside a feasible set defined by hard constraints (the survey guardrails, `process_data.survey_guardrails`):
 
 ```math
-\mathcal{C} = \Bigl\{\, u_{ik} \in \{1,2,3,4\}\ \forall i,k;\;\; y_i = \textstyle\sum_k u_{ik} = y_i^{\text{supplied}};\;\; \text{IDs unique};\;\; |\{x_i\}| \ge 2;\;\; |\{y_i\}| \ge 2;\;\; v \ge 0.95 \,\Bigr\}. \tag{14}
+\mathcal{C} = \Bigl\{\, u_{ik} \in \{1,2,3,4\}\ \forall i,k;\;\; y_i = \textstyle\sum_k u_{ik} = y_i^{\text{supplied}};\;\; \text{IDs unique};\;\; |\{x_i\}| \ge 2;\;\; |\{y_i\}| \ge 2;\;\; v \ge 0.95 \,\Bigr\}. \qquad (14)
 ```
 
 ## 6. Pipeline metrics (engineering layer)
@@ -171,30 +175,30 @@ Benchmark runs exclude the warm-up runs, and latency statistics use the successf
 
 ```math
 \mathcal{R}_{\text{bench}} = \mathcal{R} \setminus \mathcal{R}_{\text{warm}}, \qquad
-\mathcal{R}^{\text{ok}}_{m,w} = \{\, r \in \mathcal{R}_{\text{bench}} : \text{status}_r = \text{ok},\ m_r = m,\ w_r = w \,\}. \tag{15}
+\mathcal{R}^{\text{ok}}_{m,w} = \{\, r \in \mathcal{R}_{\text{bench}} : \text{status}_r = \text{ok},\ m_r = m,\ w_r = w \,\}. \qquad (15)
 ```
 
 ```math
 \mathrm{p}50_{m,w} = Q_{0.50}\bigl(\{L_r\}_{r \in \mathcal{R}^{\text{ok}}_{m,w}}\bigr), \quad
 \mathrm{p}95_{m,w} = Q_{0.95}(\cdot), \quad
-\mathrm{p}99_{m,w} = Q_{0.99}(\cdot). \tag{16}
+\mathrm{p}99_{m,w} = Q_{0.99}(\cdot). \qquad (16)
 ```
 
 Speed-up of the proposed implementation, with a bootstrap interval obtained by resampling the runs of each implementation independently:
 
 ```math
-\mathcal{S}(w) = \frac{\mathrm{p}50_{\text{base},w}}{\mathrm{p}50_{\text{vec},w}} . \tag{17}
+\mathcal{S}(w) = \frac{\mathrm{p}50_{\text{base},w}}{\mathrm{p}50_{\text{vec},w}} . \qquad (17)
 ```
 
 Guardrail metrics, with $\mathcal{R}^{\text{inj}}$ the runs that received an invalid batch:
 
 ```math
 e = \frac{|\{ r \in \mathcal{R}_{\text{bench}} : \text{status}_r = \text{error} \}|}{|\mathcal{R}_{\text{bench}}|} = 0, \qquad
-d = \frac{|\{ r \in \mathcal{R}^{\text{inj}} : \text{status}_r = \text{rejected} \}|}{|\mathcal{R}^{\text{inj}}|} = 1, \tag{18}
+d = \frac{|\{ r \in \mathcal{R}^{\text{inj}} : \text{status}_r = \text{rejected} \}|}{|\mathcal{R}^{\text{inj}}|} = 1, \qquad (18)
 ```
 
 ```math
-\max_{r}\; \bigl|\hat\rho^{\,\text{base}}_r - \hat\rho^{\,\text{vec}}_r\bigr| \le 10^{-9} \quad \text{(identical inputs)}. \tag{19}
+\max_{r}\; \bigl|\hat\rho^{\,\text{base}}_r - \hat\rho^{\,\text{vec}}_r\bigr| \le 10^{-9} \quad \text{(identical inputs)}. \qquad (19)
 ```
 
 A run is flagged as an outlier, but kept, when $L_r \notin [Q_{0.25} - 1.5\,\mathrm{IQR},\; Q_{0.75} + 1.5\,\mathrm{IQR}]$. Implemented in `process_data.filter_warmup`, `latency_summary`, `speedup_table`, `estimate_agreement` and `flag_outliers_iqr`.

@@ -73,3 +73,8 @@ These checks covered the software pipeline only. No research hypothesis was test
   * `reports/results.json` still held the hash of an earlier `configs/research.yaml` (the file had changed only in a comment). It was regenerated, and `config_sha256` now matches the committed config.
 * The notebook had been executed with Python 3.14.2 and its output contained the font warnings and a local path; it was executed again (13 code cells, in order, no errors or warnings).
 * After the fixes, 30 unit tests passed (Python 3.13.18, Linux, workbooks present). All six figures were regenerated and checked visually, and the report was recompiled (9 pages, no warnings, all fonts embedded). The reported results are unchanged; the processed CSVs differ from the previous version only in the last floating-point digits.
+
+### 2026-11-18, formula rendering on GitHub
+
+* On GitHub the numbered equations in `docs/domain_model.md` were drawn as a collapsed column, and equations (10) and (12) and the first equation of `reports/paper_section_4.md` showed the error "The following macros are not allowed: operatorname". GitHub turns `\tag{n}` into a labelled MathML row that Chromium-based browsers do not lay out, and it does not allow `\operatorname`.
+* Equation numbers are now written as `\qquad (n)`, `\operatorname` was replaced by `\mathrm`, and the two `\underbrace` labels were moved into the text. All 21 changed display equations were rendered with GitHub's own math renderer in the browser before the change was committed: no errors and no horizontal scrolling. The mathematics is unchanged; the PDF report is built from LaTeX and was not affected.
