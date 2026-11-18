@@ -44,7 +44,7 @@ One JSON object per line.
 | schema_version, session_id, run_id | log version, collection session, sequential run number |
 | timestamp_utc | ISO 8601 with microseconds, taken after the timed call |
 | phase | `warmup` (discarded) or `benchmark` |
-| implementation | `baseline_loop` (Task 2) or `vectorized` |
+| implementation | `baseline_loop` (original loop) or `vectorized` |
 | n_records, rep, batch_seed | workload size, repetition index, seed for the workload and bootstrap |
 | bootstrap_resamples | resamples per run (1,000) |
 | edge_case | null, or the injected defect: `missing_item`, `out_of_range`, `duplicate_id`, `constant_exposure` |

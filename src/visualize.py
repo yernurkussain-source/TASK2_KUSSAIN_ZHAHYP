@@ -1,4 +1,4 @@
-"""Publication figures for Task 3.
+"""Publication figures.
 
 Every figure follows the three course rules: labelled axes with units, visible uncertainty
 (95% bootstrap CI and/or p25-p75 bands), and a colour-blind-safe palette (seaborn "colorblind")
@@ -31,7 +31,7 @@ PALETTE = sns.color_palette('colorblind')
 COLOR = {'baseline_loop': PALETTE[0], 'vectorized': PALETTE[1],
          'main': PALETTE[0], 'five_level': PALETTE[2], 'adjusted': PALETTE[3], 'literature': PALETTE[7]}
 MARKER = {'baseline_loop': 'o', 'vectorized': 's', 'main': 'o', 'five_level': 's', 'adjusted': 'D'}
-IMPL_LABEL = {'baseline_loop': 'Baseline: Task 2 loop bootstrap', 'vectorized': 'Proposed: vectorised bootstrap'}
+IMPL_LABEL = {'baseline_loop': 'Baseline: original loop bootstrap', 'vectorized': 'Proposed: vectorised bootstrap'}
 UPS_AXIS = 'UPS total score (points; range 6–24)'
 FREQ_AXIS = 'Academic GenAI use frequency (ordinal level)'
 # Matplotlib metadata keys are cleared so repeated runs write byte-identical PDFs.
@@ -43,7 +43,7 @@ def set_style() -> None:
     plt.rcParams.update({'axes.edgecolor': '0.35', 'grid.color': '0.88', 'grid.linewidth': 0.6,
                          'lines.linewidth': 2.0, 'lines.markersize': 7, 'savefig.bbox': 'tight',
                          'legend.frameon': True, 'legend.framealpha': 0.95, 'pdf.fonttype': 42,
-                         'svg.hashsalt': 'task3', 'figure.dpi': 100,
+                         'svg.hashsalt': 'kussain-zhakyp', 'figure.dpi': 100,
                          # Matplotlib's bundled font: seaborn would otherwise pick Arial where it is
                          # installed, and Arial has no subscript zero (the H₀ label in Figure 4).
                          'font.family': 'sans-serif', 'font.sans-serif': ['DejaVu Sans']})
@@ -331,7 +331,7 @@ def make_all(cfg: dict) -> list[Path]:
 
 
 def main(argv=None):
-    parser = argparse.ArgumentParser(description='Render Task 3 figures (PDF + 300 DPI PNG).')
+    parser = argparse.ArgumentParser(description='Render the figures (PDF + 300 DPI PNG).')
     parser.add_argument('--config', default='configs/research.yaml')
     args = parser.parse_args(argv)
     cfg = process_data.load_config(args.config)

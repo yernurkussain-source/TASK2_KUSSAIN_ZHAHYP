@@ -30,7 +30,7 @@ def fetch(cfg: dict, base_url: str = URL, timeout: float = 60.0) -> list[Path]:
             print(f'{key}: already present and verified ({dest.relative_to(ROOT)})')
             continue
         url = base_url.format(file_id=spec['mendeley_file_id'])
-        req = urllib.request.Request(url, headers={'User-Agent': 'task3-research-pipeline/1.0'})
+        req = urllib.request.Request(url, headers={'User-Agent': 'genai-procrastination-pipeline/1.0'})
         with urllib.request.urlopen(req, timeout=timeout) as resp:  # noqa: S310 - fixed public URL
             payload = resp.read()
         digest = hashlib.sha256(payload).hexdigest()

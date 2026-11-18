@@ -48,7 +48,7 @@ class CodingTests(unittest.TestCase):
 
 
 class StatisticsTests(unittest.TestCase):
-    def test_vectorised_bootstrap_equals_task2_loop(self):
+    def test_vectorised_bootstrap_equals_loop_bootstrap(self):
         rng = np.random.default_rng(3)
         x = rng.integers(1, 5, 120)
         y = rng.integers(6, 25, 120)
@@ -60,7 +60,7 @@ class StatisticsTests(unittest.TestCase):
         self.assertAlmostEqual(loop['spearman_rho'], vec['spearman_rho'], places=12)
         np.testing.assert_allclose(loop['ci95_percentile_bootstrap'], vec['ci95_percentile_bootstrap'], atol=1e-12)
 
-    def test_degenerate_resamples_are_skipped_like_task2(self):
+    def test_degenerate_resamples_are_skipped_like_the_loop(self):
         x = np.array([1, 1, 1, 1, 1, 1, 1, 1, 2, 2])
         y = np.arange(10)
         loop = benchmark.association(x, y, {'seed': 5, 'bootstrap_resamples': 300,

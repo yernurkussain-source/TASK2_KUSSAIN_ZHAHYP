@@ -1,4 +1,4 @@
-% Task 3 report: Research Results, Data Analysis and Scientific Visualisation.
+% Report: Research Results, Data Analysis and Scientific Visualisation.
 % Numbers in the text come from generated_values.tex and generated_tables.tex (src/build_report.py).
 % Build: latexmk -pdf -cd reports/latex/task3_report.tex
 \documentclass[11pt,a4paper]{article}
@@ -23,7 +23,7 @@
 \input{generated_values}
 \newcommand{\repo}{\url{https://github.com/yernurkussain-source/TASK2_KUSSAIN_ZHAHYP}}
 
-\title{Academic Generative AI Use and Unintentional Procrastination:\\ Task 3 Results, Data Analysis and Scientific Visualisation}
+\title{Academic Generative AI Use and Unintentional Procrastination:\\ Results, Data Analysis and Scientific Visualisation}
 \author{Ernur Kussain \and Zhanassyl Zhakyp}
 \date{2 November 2026}
 
@@ -31,16 +31,16 @@
 \maketitle
 
 \begin{abstract}
-We analysed a public survey of Indian bachelor's and master's students (Sharma et al., 2026) to test whether the frequency of academic generative-AI (GenAI) use is associated with unintentional procrastination. In the main sample ($n=\vnMain$), Spearman's $\hat\rho_s=\vrhoMain$ (95\% bootstrap CI \vrhoMainLo{} to \vrhoMainHi; $p<0.001$), so $H_0:\rho_s=0$ is rejected. Two sensitivity analyses on the raw file give $\hat\rho_s=\vrhoA$ and $\vrhoB$, and adding AI-use frequency to a covariates-only model raises $R^2$ from \vrTwoBase{} to \vrTwoProp{} (standardised $\beta=\vbetaStd$). A benchmark of the analysis pipeline, with warm-up filtering and error guardrails, shows that a vectorised bootstrap returns identical estimates and is \vspeedMin--\vspeedMax{} times faster than the Task~2 loop. The association is cross-sectional and may reflect stable traits rather than an effect of GenAI. No Kazakhstani study yet measures GenAI use together with procrastination, so we treat the result as a hypothesis for a local follow-up study, which we outline.
+We analysed a public survey of Indian bachelor's and master's students (Sharma et al., 2026) to test whether the frequency of academic generative-AI (GenAI) use is associated with unintentional procrastination. In the main sample ($n=\vnMain$), Spearman's $\hat\rho_s=\vrhoMain$ (95\% bootstrap CI \vrhoMainLo{} to \vrhoMainHi; $p<0.001$), so $H_0:\rho_s=0$ is rejected. Two sensitivity analyses on the raw file give $\hat\rho_s=\vrhoA$ and $\vrhoB$, and adding AI-use frequency to a covariates-only model raises $R^2$ from \vrTwoBase{} to \vrTwoProp{} (standardised $\beta=\vbetaStd$). A benchmark of the analysis pipeline, with warm-up filtering and error guardrails, shows that a vectorised bootstrap returns identical estimates and is \vspeedMin--\vspeedMax{} times faster than the original loop. The association is cross-sectional and may reflect stable traits rather than an effect of GenAI. No Kazakhstani study yet measures GenAI use together with procrastination, so we treat the result as a hypothesis for a local follow-up study, which we outline.
 \end{abstract}
 
 \section{Introduction}
-Task~1 identified a gap: no study jointly examines purpose-specific GenAI use and validated procrastination measures among students in Kazakhstan, with attention to temporal order and confounders. Task~2 turned the association strand of that question into a testable hypothesis on open data:
+A review of the literature identified a gap: no study jointly examines purpose-specific GenAI use and validated procrastination measures among students in Kazakhstan, with attention to temporal order and confounders. We turned the association strand of that question into a testable hypothesis on open data:
 \begin{equation}
 H_0:\ \rho_s = 0 \qquad\text{vs.}\qquad H_1:\ \rho_s\neq0,\qquad \alpha=0.05\ \text{(two-sided)},
 \label{eq:h0}
 \end{equation}
-where $\rho_s$ is the population Spearman correlation between academic GenAI-use frequency and the Unintentional Procrastination Scale (UPS) total. Task~3 collects and processes the data, formalises the domain model and reports the results. The repository is \repo; the release tagged \texttt{v1.0-task3} contains every file referred to here.
+where $\rho_s$ is the population Spearman correlation between academic GenAI-use frequency and the Unintentional Procrastination Scale (UPS) total. This report describes how the data were collected and processed, formalises the domain model and reports the results. The repository is \repo; its tagged release contains every file referred to here.
 
 \section{Data and samples}
 The source is Mendeley Data V1 (DOI 10.17632/88pv88j8jb.1, CC BY 4.0): a raw workbook with 355 responses and a cleaned workbook with 300. Both were downloaded and checked against the SHA-256 hashes stored in \path{configs/research.yaml}. All 300 UPS totals that we computed match the totals supplied by the authors. The main sample excludes 15 Higher Secondary respondents ($n=\vnMain$). Sensitivity~A applies our own rules to the raw file ($n=\vnA$); Sensitivity~B keeps respondents who use GenAI rarely or never as a reference level~0 ($n=\vnB$). Initials, academic-dishonesty items and domicile are never written to the derived files.

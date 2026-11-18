@@ -57,7 +57,7 @@ Implemented in `process_data.code_frame` and audited against the supplied totals
 | $\mathcal{R}$ | set | | all timed runs in `data/raw/test_run.jsonl` |
 | $\mathcal{R}_{\text{warm}}, \mathcal{R}_{\text{bench}}$ | sets | $\mathcal{R}_{\text{warm}} \cup \mathcal{R}_{\text{bench}} = \mathcal{R}$ | warm-up runs (discarded) and benchmark runs |
 | $L_r$ | scalar | $\mathbb{R}_{>0}$, ms | latency of run $r$ |
-| $m \in \{\text{base}, \text{vec}\}$ | label | | implementation: Task 2 loop or vectorised |
+| $m \in \{\text{base}, \text{vec}\}$ | label | | implementation: original loop or vectorised |
 | $w$ | scalar | $\{50, 100, 285, 500, 1000, 2000\}$ | workload, records per run |
 
 ## 3. Primary metric and hypotheses
@@ -89,7 +89,7 @@ Q_{0.975}\bigl(\{\hat\rho^{*}_{b}\}_{b \in \mathcal{B}_{\text{valid}}}\bigr)\Big
 v = \frac{|\mathcal{B}_{\text{valid}}|}{B} \;\ge\; 0.95 . \qquad (5)
 ```
 
-Implemented twice with identical resample indices: `benchmark.association` (Task 2 loop, the engineering baseline) and `process_data.spearman_bootstrap` (vectorised).
+Implemented twice with identical resample indices: `benchmark.association` (original loop, the engineering baseline) and `process_data.spearman_bootstrap` (vectorised).
 
 ### 3.2 Permutation p-value
 
@@ -225,7 +225,7 @@ flowchart TB
   researcher(["Person: researcher<br/>runs the pipeline"])
   mendeley[("External system: Mendeley Data V1<br/>raw and cleaned workbooks")]
 
-  subgraph repo["Software system: Task 3 analysis repository"]
+  subgraph repo["Software system: analysis repository"]
     direction TB
     fetch["Container: fetch_data.py<br/>download + SHA-256 check"]
     raw[("Data store: data/raw/<br/>workbooks (ignored), test_run.jsonl")]

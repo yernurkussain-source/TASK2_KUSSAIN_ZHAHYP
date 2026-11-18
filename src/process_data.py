@@ -1,4 +1,4 @@
-"""Data preparation and statistical aggregation for Task 3.
+"""Data preparation and statistical aggregation.
 
 Two layers are handled here:
 
@@ -63,7 +63,7 @@ COLUMNS = {
 UPS_POSITIONS = list(range(27, 33))  # one-based columns 28-33
 UPS_PREFIXES = ['I rarely begin tasks', 'Often I mean to be doing', 'I often seem to start things',
                 'I intend to get things done', 'Often I will set myself a date', 'I really want to get things']
-CODED_FIELDS = ['record_id', 'age', 'education', 'ai_frequency'] + UPS_ITEMS  # Task 2 schema
+CODED_FIELDS = ['record_id', 'age', 'education', 'ai_frequency'] + UPS_ITEMS  # schema of the original pipeline
 
 
 def load_config(path: str | Path) -> dict:
@@ -267,7 +267,7 @@ def _row_pearson(a: np.ndarray, b: np.ndarray) -> np.ndarray:
 
 
 def bootstrap_indices(n: int, resamples: int, seed: int) -> np.ndarray:
-    """Draw resample indices with the same call sequence as the Task 2 loop (identical resamples)."""
+    """Draw resample indices with the same call sequence as the original loop (identical resamples)."""
     rng = np.random.default_rng(seed)
     return np.stack([rng.integers(0, n, n) for _ in range(resamples)])
 

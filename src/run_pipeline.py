@@ -1,4 +1,4 @@
-"""One-command entry point for Task 3.
+"""One-command entry point for the analysis.
 
 Default: re-code the source workbooks if they are in data/raw/ (otherwise use the committed
 data/processed/ CSVs), aggregate statistics, render all figures and rebuild the results section
@@ -24,7 +24,7 @@ import visualize  # noqa: E402
 
 
 def main(argv=None):
-    parser = argparse.ArgumentParser(description='Run the Task 3 pipeline.')
+    parser = argparse.ArgumentParser(description='Run the analysis pipeline.')
     parser.add_argument('--config', default='configs/research.yaml')
     parser.add_argument('--fetch', action='store_true', help='download the source workbooks (internet required)')
     parser.add_argument('--collect', action='store_true', help='re-collect data/raw/test_run.jsonl before analysis')

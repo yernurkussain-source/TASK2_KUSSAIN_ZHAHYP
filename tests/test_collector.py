@@ -18,7 +18,7 @@ class CollectorTests(unittest.TestCase):
     def setUp(self):
         self.pool = collector.load_rows(pdp.ROOT / CFG['benchmark']['input_path'])
 
-    def test_workload_has_unique_ids_and_task2_schema(self):
+    def test_workload_has_unique_ids_and_input_schema(self):
         rows = collector.make_workload(self.pool, 40, np.random.default_rng(1))
         self.assertEqual(len({r['record_id'] for r in rows}), 40)
         self.assertEqual(list(rows[0]), pdp.CODED_FIELDS)

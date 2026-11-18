@@ -2,7 +2,7 @@
 
 **Authors:** Ernur Kussain and Zhanassyl Zhakyp
 
-**Release:** `v1.0-task3`
+**Release:** [GitHub Releases](https://github.com/yernurkussain-source/TASK2_KUSSAIN_ZHAHYP/releases)
 
 **Report:** [`reports/TASK3_KUSSAIN_ZHAKYP_REPORT.pdf`](reports/TASK3_KUSSAIN_ZHAKYP_REPORT.pdf) (LaTeX source in `reports/latex/`), with the results section as Markdown in [`reports/paper_section_4.md`](reports/paper_section_4.md).
 
@@ -13,7 +13,7 @@ This repository holds a reproducible secondary analysis of a public Indian highe
 The work has two layers:
 
 1. Survey layer (the research question). The two public workbooks are coded, eligibility rules are applied, the Unintentional Procrastination Scale (UPS) is scored and audited, and the association is estimated with rank statistics, reference-group comparisons and a baseline-versus-proposed regression model.
-2. Pipeline layer (the measurement tool). The collector times the Task 2 analysis function under six workloads, separates warm-up from benchmark runs, injects invalid batches to track errors as a guardrail metric, and compares the Task 2 loop bootstrap with a vectorised implementation that returns identical estimates.
+2. Pipeline layer (the measurement tool). The collector times the original analysis function under six workloads, separates warm-up from benchmark runs, injects invalid batches to track errors as a guardrail metric, and compares the original loop bootstrap with a vectorised implementation that returns identical estimates.
 
 ## Research question and hypotheses
 
@@ -50,7 +50,7 @@ Baselines used for comparison:
 | Lowest-use reference group (*few times a month* in the main sample; *rarely/never* in Sensitivity B) | survey | every higher use level |
 | Covariates-only OLS model | survey | model with AI-use frequency added |
 | Published estimate: Abbas et al. (2024), β = 0.309 for ChatGPT use and general procrastination | survey | our standardised β (different scale, so only a rough reference) |
-| Task 2 loop bootstrap (`benchmark.association`) | pipeline | vectorised bootstrap (`process_data.spearman_bootstrap`) |
+| Original loop bootstrap (`benchmark.association`) | pipeline | vectorised bootstrap (`process_data.spearman_bootstrap`) |
 
 ## Results and discussion
 
@@ -61,7 +61,7 @@ Baselines used for comparison:
 | UPS score (points), main sample: reference group *few times a month* (n = 81) vs *a few times a week or daily* (n = 165) | 12.0 (9–14); 12.01 ± 4.29 | 16.0 (12–18); 15.18 ± 4.57 | Spearman ρ over all four levels = 0.283 [0.177, 0.384] |
 | UPS score (points), raw five-level sample: reference group *rarely/never* (n = 24) vs *a few times a week or daily* (n = 173) | 10.5 (7–14); 10.83 ± 4.11 | 15.0 (12–18); 15.13 ± 4.53 | Spearman ρ over five levels = 0.305 [0.205, 0.399] |
 | Explained variance of UPS: covariates-only model vs + AI-use frequency (n = 285) | R² = 0.004 | R² = 0.086 | ΔR² = 0.081; F = 24.9, p < 0.001 |
-| Pipeline latency (ms) at n = 285 records: Task 2 loop vs vectorised bootstrap | 456.4 (445.9–483.3); 467.7 ± 33.4 | 47.2 (45.5–51.0); 49.2 ± 5.9 | speed-up of p50 = 9.67× [9.27, 10.31] |
+| Pipeline latency (ms) at n = 285 records: original loop vs vectorised bootstrap | 456.4 (445.9–483.3); 467.7 ± 33.4 | 47.2 (45.5–51.0); 49.2 ± 5.9 | speed-up of p50 = 9.67× [9.27, 10.31] |
 
 Values are Median (p25–p75); Mean ± SD.
 
@@ -109,17 +109,17 @@ The log `data/raw/test_run.jsonl` has 420 records: 60 warm-up records were disca
 
 | Records per run | Implementation | Runs ok / total | p50 ms [95% CI] | p95 ms [95% CI] | p99 ms | Mean ± SD ms | Unexpected error rate | Invalid batches rejected |
 |---|---|---|---|---|---|---|---|---|
-| 50 | Baseline (Task 2 loop) | 27 / 30 | 374.6 [369.0, 387.1] | 430.7 [397.8, 436.1] | 435.2 | 381.2 ± 26.4 | 0% | 3 / 3 |
+| 50 | Baseline (original loop) | 27 / 30 | 374.6 [369.0, 387.1] | 430.7 [397.8, 436.1] | 435.2 | 381.2 ± 26.4 | 0% | 3 / 3 |
 | 50 | Proposed (vectorised) | 27 / 30 | 13.5 [13.3, 13.8] | 17.9 [14.3, 19.9] | 19.6 | 14.0 ± 1.7 | 0% | 3 / 3 |
-| 100 | Baseline (Task 2 loop) | 27 / 30 | 398.5 [365.0, 424.7] | 501.9 [440.4, 538.4] | 533.3 | 402.4 ± 50.8 | 0% | 3 / 3 |
+| 100 | Baseline (original loop) | 27 / 30 | 398.5 [365.0, 424.7] | 501.9 [440.4, 538.4] | 533.3 | 402.4 ± 50.8 | 0% | 3 / 3 |
 | 100 | Proposed (vectorised) | 27 / 30 | 19.5 [19.1, 19.8] | 29.3 [21.2, 30.1] | 29.9 | 20.8 ± 3.3 | 0% | 3 / 3 |
-| 285 | Baseline (Task 2 loop) | 23 / 30 | 456.4 [448.4, 478.1] | 524.8 [487.6, 558.6] | 551.5 | 467.7 ± 33.4 | 0% | 7 / 7 |
+| 285 | Baseline (original loop) | 23 / 30 | 456.4 [448.4, 478.1] | 524.8 [487.6, 558.6] | 551.5 | 467.7 ± 33.4 | 0% | 7 / 7 |
 | 285 | Proposed (vectorised) | 23 / 30 | 47.2 [46.1, 48.3] | 63.7 [52.0, 65.9] | 65.6 | 49.2 ± 5.9 | 0% | 7 / 7 |
-| 500 | Baseline (Task 2 loop) | 26 / 30 | 496.2 [492.8, 511.5] | 595.5 [530.4, 702.3] | 675.7 | 511.8 ± 52.0 | 0% | 4 / 4 |
+| 500 | Baseline (original loop) | 26 / 30 | 496.2 [492.8, 511.5] | 595.5 [530.4, 702.3] | 675.7 | 511.8 ± 52.0 | 0% | 4 / 4 |
 | 500 | Proposed (vectorised) | 26 / 30 | 77.3 [75.9, 78.4] | 85.6 [78.6, 88.0] | 87.6 | 77.6 ± 4.1 | 0% | 4 / 4 |
-| 1000 | Baseline (Task 2 loop) | 25 / 30 | 648.8 [629.5, 682.4] | 699.1 [686.5, 770.2] | 753.2 | 652.8 ± 42.8 | 0% | 5 / 5 |
+| 1000 | Baseline (original loop) | 25 / 30 | 648.8 [629.5, 682.4] | 699.1 [686.5, 770.2] | 753.2 | 652.8 ± 42.8 | 0% | 5 / 5 |
 | 1000 | Proposed (vectorised) | 25 / 30 | 151.2 [146.2, 155.2] | 167.8 [157.4, 172.0] | 171.3 | 150.9 ± 9.3 | 0% | 5 / 5 |
-| 2000 | Baseline (Task 2 loop) | 27 / 30 | 905.3 [868.6, 917.7] | 1065.0 [947.0, 1120.8] | 1107.4 | 906.8 ± 83.4 | 0% | 3 / 3 |
+| 2000 | Baseline (original loop) | 27 / 30 | 905.3 [868.6, 917.7] | 1065.0 [947.0, 1120.8] | 1107.4 | 906.8 ± 83.4 | 0% | 3 / 3 |
 | 2000 | Proposed (vectorised) | 27 / 30 | 277.3 [266.2, 287.4] | 324.7 [296.3, 354.1] | 348.1 | 279.0 ± 26.3 | 0% | 3 / 3 |
 
 In 155 paired runs on identical inputs, the two implementations returned the same ρ and interval limits (largest absolute difference 2.2e-16). The vectorised version was faster at every workload, from 3.3× at 2000 records to 27.8× at 50 records. The advantage is largest for small inputs, where the loop spends most of its time on the fixed overhead of 1,000 separate SciPy calls; for larger inputs the ranking work itself takes up more of the run time in both versions. No unexpected errors occurred, and every injected invalid batch was rejected. Latency was summarised from successful runs, and `p95_all_runs_ms` in `data/processed/pipeline_latency_summary.csv` reports the p95 with rejected runs included. These timings come from one machine and are engineering diagnostics only.
@@ -136,7 +136,7 @@ Figure 6 combines the main results: (a) median UPS by use level, (b) effect size
 
 In this sample, more frequent academic GenAI use goes with more unintentional procrastination. The association is small to moderate (ρ ≈ 0.28, 95% CI [0.18, 0.38]), and the two raw-file analyses give similar estimates (ρ = 0.26 and 0.31), so the authors' unexplained exclusions do not appear to drive it. Our standardised β of 0.29 is close to the β = 0.309 that Abbas et al. (2024) report for ChatGPT use and general procrastination. That study used a different scale, model and population, so the agreement is only a consistency check.
 
-Several limits apply. The data are cross-sectional self-reports, so the direction is unknown: students who already delay may turn to AI more, or workload may drive both. UPS measures unintentional procrastination in general, while Task 1 asked about academic procrastination. The source is a convenience sample recruited online in India, and its education categories mix graduates with current students. The frequency item is ordinal, so the linear model term is an approximation. For Kazakhstan, these results suggest a hypothesis to test with local data; they do not estimate a local effect.
+Several limits apply. The data are cross-sectional self-reports, so the direction is unknown: students who already delay may turn to AI more, or workload may drive both. UPS measures unintentional procrastination in general, while the original research question concerned academic procrastination. The source is a convenience sample recruited online in India, and its education categories mix graduates with current students. The frequency item is ordinal, so the linear model term is an approximation. For Kazakhstan, these results suggest a hypothesis to test with local data; they do not estimate a local effect.
 
 ## Domain model
 
@@ -150,7 +150,7 @@ No Kazakhstani study yet measures GenAI use together with procrastination, and n
 
 ## System requirements
 
-* Python 3.12 or 3.13 (tested: 3.12 on Linux, 3.13 on Linux; the Task 2 pipeline was also tested on Windows with 3.13.7).
+* Python 3.12 or 3.13 (tested: 3.12 and 3.13 on Linux, 3.13.7 on Windows).
 * Package versions are pinned in `requirements.txt`; `requirements-lock.txt` pins every transitive dependency of the tested environment.
 * A standard CPU and about 1 GB of free RAM. No GPU is needed.
 * Internet is needed only to install packages and, optionally, to download the source workbooks.
@@ -190,20 +190,20 @@ python src/collector.py                 # re-collect data/raw/test_run.jsonl (ab
 Re-collecting replaces the committed log, so timings and the latency tables will change with the machine. For an isolated run, close background applications or use Docker with fixed limits:
 
 ```bash
-docker build -t task3-kussain-zhakyp .
-docker run --rm task3-kussain-zhakyp
-docker run --rm --cpus=2 --memory=2g -v "$PWD/data:/app/data" task3-kussain-zhakyp python src/collector.py
+docker build -t kussain-zhakyp .
+docker run --rm kussain-zhakyp
+docker run --rm --cpus=2 --memory=2g -v "$PWD/data:/app/data" kussain-zhakyp python src/collector.py
 ```
 
 ## Repository structure
 
 ```text
 configs/research.yaml          All parameters: paths, hashes, seed, resamples, workloads, edge cases
-configs/sample.json            Task 2 synthetic smoke-test configuration
+configs/sample.json            Synthetic smoke-test configuration
 data/raw/test_run.jsonl        Benchmark log (warm-up and benchmark phases)
 data/raw/test_run_meta.json    Hardware, OS and package metadata of that run
 data/processed/                Coded survey data, exclusion flow, summary tables, metrics_summary.csv
-data/sample/                   Ten synthetic rows used by the Task 2 smoke test
+data/sample/                   Ten synthetic rows used by the smoke test
 docs/domain_model.md           Domain model: LaTeX formalisation, C4 view, STRIDE matrix
 docs/                          Methodology card, data dictionary, validation record
 notebooks/01_data_analysis.ipynb   Executed analysis notebook
@@ -219,7 +219,7 @@ src/collector.py               Measurement harness
 src/visualize.py               Figure module
 src/run_pipeline.py            One-command entry point
 src/build_report.py            Builds the results section and LaTeX inputs from the outputs
-src/benchmark.py               Task 2 pipeline (unchanged; the baseline implementation)
+src/benchmark.py               Original pipeline (unchanged; the baseline implementation)
 tests/                         30 unit tests
 ```
 

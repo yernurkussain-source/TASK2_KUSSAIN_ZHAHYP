@@ -268,12 +268,12 @@ $M_1$ proposed & $M_0$ + AI-use frequency & {r2[1]} & {ar2[1]} & {aic[1]} & {bic
 
     L.append(r'''\begin{table}[!htbp]
 \centering
-\caption{Pipeline latency per run (ms) after warm-up filtering, successful runs only (Eqs.~\ref{eq:bench}--\ref{eq:speedup}). Median (p25--p75) and tail percentiles for the Task~2 loop bootstrap (baseline) and the vectorised bootstrap (proposed), with the p50 speed-up $\mathcal{S}$ and its 95\% bootstrap interval. The lower (better) latency in each row is in bold.}
+\caption{Pipeline latency per run (ms) after warm-up filtering, successful runs only (Eqs.~\ref{eq:bench}--\ref{eq:speedup}). Median (p25--p75) and tail percentiles for the original loop bootstrap (baseline) and the vectorised bootstrap (proposed), with the p50 speed-up $\mathcal{S}$ and its 95\% bootstrap interval. The lower (better) latency in each row is in bold.}
 \label{tab:latency}
 \footnotesize\setlength{\tabcolsep}{4pt}
 \begin{tabular}{@{}r ll ll l@{}}
 \toprule
-& \multicolumn{2}{c}{Baseline (Task 2 loop)} & \multicolumn{2}{c}{Proposed (vectorised)} & \\
+& \multicolumn{2}{c}{Baseline (original loop)} & \multicolumn{2}{c}{Proposed (vectorised)} & \\
 \cmidrule(lr){2-3}\cmidrule(lr){4-5}
 $w$ & p50 (p25--p75) & p95 / p99 & p50 (p25--p75) & p95 / p99 & $\mathcal{S}$ [95\% CI]\\
 \midrule''')

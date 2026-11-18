@@ -2,7 +2,7 @@
 
 **Authors:** Ernur Kussain and Zhanassyl Zhakyp
 
-This section reports the results of the Task 3 analysis. Equation numbers refer to the domain model in [`docs/domain_model.md`](../docs/domain_model.md); tables and figures are numbered within this section. All values are generated from `reports/results.json` and `data/processed/` by `src/build_report.py`. In the tables, bold marks the better value only where one direction is better (model fit, latency); association statistics are not highlighted.
+This section reports the results of the analysis. Equation numbers refer to the domain model in [`docs/domain_model.md`](../docs/domain_model.md); tables and figures are numbered within this section. All values are generated from `reports/results.json` and `data/processed/` by `src/build_report.py`. In the tables, bold marks the better value only where one direction is better (model fit, latency); association statistics are not highlighted.
 
 ## 4.1 Setup
 
@@ -12,7 +12,7 @@ The main sample has $n = 285$ bachelor's and master's respondents from the suppl
 \hat\rho_s = \mathrm{corr}\bigl(R(\mathbf{x}),\, R(\mathbf{y})\bigr), \qquad H_0:\ \rho_s = 0,
 ```
 
-with a 95% percentile bootstrap interval over $B = 10\,000$ paired resamples (Eq. 4) and a permutation p-value (Eq. 6). The supplementary model compares the covariates-only baseline $M_0$ with the proposed model $M_1$, which adds $x_i$ (Eqs. 7 to 9). The pipeline benchmark times the Task 2 analysis on workloads of 50 to 2,000 records; latency percentiles exclude warm-up runs (Eqs. 15 and 16), and the speed-up is
+with a 95% percentile bootstrap interval over $B = 10\,000$ paired resamples (Eq. 4) and a permutation p-value (Eq. 6). The supplementary model compares the covariates-only baseline $M_0$ with the proposed model $M_1$, which adds $x_i$ (Eqs. 7 to 9). The pipeline benchmark times the original analysis function on workloads of 50 to 2,000 records; latency percentiles exclude warm-up runs (Eqs. 15 and 16), and the speed-up is
 
 ```math
 \mathcal{S}(w) = \frac{\mathrm{p}50_{\text{base},w}}{\mathrm{p}50_{\text{vec},w}} .
@@ -104,7 +104,7 @@ All 25 injected invalid batches were rejected by both implementations, and no un
 
 ![Figure 4](figures/fig1_latency_vs_load.png)
 
-**Figure 4.** Pipeline latency per run (ms, log scale) against workload (records per run, log scale) for the Task 2 loop bootstrap (circles) and the vectorised bootstrap (squares). Solid, dashed and dotted lines are p50, p95 and p99; shaded bands are 95% bootstrap intervals of p50 and p95. Warm-up runs are excluded. The gap between the implementations narrows as the workload grows.
+**Figure 4.** Pipeline latency per run (ms, log scale) against workload (records per run, log scale) for the original loop bootstrap (circles) and the vectorised bootstrap (squares). Solid, dashed and dotted lines are p50, p95 and p99; shaded bands are 95% bootstrap intervals of p50 and p95. Warm-up runs are excluded. The gap between the implementations narrows as the workload grows.
 
 ![Figure 5](figures/fig5_latency_distribution.png)
 

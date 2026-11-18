@@ -2,7 +2,7 @@
 
 Entries are in date order. Each one states what was run, where, and what it does not cover.
 
-## Task 2
+## Initial pipeline (synthetic data)
 
 ### 2026-10-07, preparation environment (Linux)
 
@@ -21,9 +21,9 @@ Entries are in date order. Each one states what was run, where, and what it does
 * Docker CLI 29.8.2; the image built, including the unit-test step.
 * Container: Python 3.12.14, NumPy 2.3.5, SciPy 1.17.0; ten synthetic records; 1,000 valid resamples; exit code 0; runtime 0.6274 s.
 
-These checks covered the software pipeline only. No research hypothesis was tested in Task 2.
+These checks covered the software pipeline only. No research hypothesis was tested at this stage.
 
-## Task 3: data collection and analysis
+## Data collection and analysis
 
 ### 2026-10-28, source data
 
@@ -45,9 +45,9 @@ These checks covered the software pipeline only. No research hypothesis was test
 * `requirements-lock.txt` installed into a new Python 3.12 environment; tests and pipeline passed and reproduced all committed outputs exactly.
 * `notebooks/01_data_analysis.ipynb` was executed top to bottom with nbconvert on Python 3.12 (with workbooks) and on Python 3.13 (without workbooks): execution counts 1 to 12 in order, no errors.
 * All five figures exist as PDF and 300 DPI PNG and were inspected visually for axis units, uncertainty display, legend placement and grayscale-distinguishable markers. The seaborn colour-blind colours used were checked with a palette validator (CVD separation passed).
-* Not verified here: `docker build`, because Docker Hub is not reachable from the preparation environment. The Dockerfile now installs `requirements-lock.txt` and runs `src/run_pipeline.py`, so it has to be rebuilt and run on a machine with Docker before the final submission. Windows execution of the Task 3 scripts has not been verified yet either.
+* Not verified here: `docker build`, because Docker Hub is not reachable from the preparation environment. The Dockerfile now installs `requirements-lock.txt` and runs `src/run_pipeline.py`, so it has to be rebuilt and run on a machine with Docker before the final submission. Windows execution of the analysis scripts has not been verified yet either.
 
-## Task 3: domain model and report
+## Domain model and report
 
 ### 2026-11-02, domain model, results section and report (preparation environment)
 
@@ -61,13 +61,13 @@ These checks covered the software pipeline only. No research hypothesis was test
 ### 2026-11-02, Windows and Docker Desktop (Ernur Kussain)
 
 * Windows, Python 3.13.7 virtual environment: all 29 unit tests passed in 7.2 s with the source workbooks present, so the re-coding check ran as well.
-* `docker build -t task3-kussain-zhakyp .` completed on Docker Desktop (Linux containers) from `python:3.12.14-slim` (digest `f77ac9e4…e51f`), with dependencies installed from `requirements-lock.txt` and the unit-test step passing inside the image.
-* `docker run --rm task3-kussain-zhakyp` ran the pipeline from the committed processed CSVs and benchmark log in 10.3 s: n = 285, ρ = 0.2829, 95% CI [0.1771, 0.3835], p = 1.211 × 10⁻⁶, identical to `reports/results.json`. It wrote all six figures (PDF and PNG), `reports/paper_section_4.md` and the LaTeX inputs inside the container.
+* `docker build` completed on Docker Desktop (Linux containers) from `python:3.12.14-slim` (digest `f77ac9e4…e51f`), with dependencies installed from `requirements-lock.txt` and the unit-test step passing inside the image.
+* `docker run --rm` ran the pipeline from the committed processed CSVs and benchmark log in 10.3 s: n = 285, ρ = 0.2829, 95% CI [0.1771, 0.3835], p = 1.211 × 10⁻⁶, identical to `reports/results.json`. It wrote all six figures (PDF and PNG), `reports/paper_section_4.md` and the LaTeX inputs inside the container.
 * The workbooks are excluded by `.dockerignore`, so the container does not re-code the survey data; that step is covered by the Windows test run above.
 
 ### 2026-11-03, check of the tagged release (preparation environment)
 
-* The tag `v1.0-task3` was cloned from GitHub into an empty folder; the 29 tests passed and the pipeline ran. The check found three problems, now fixed:
+* The release tag was cloned from GitHub into an empty folder; the 29 tests passed and the pipeline ran. The check found three problems, now fixed:
   * Figure 4 showed an empty box instead of the subscript in "H₀" when rendered on macOS, because seaborn picks Arial where it is installed and Arial has no subscript zero. `src/visualize.py` now uses DejaVu Sans, which ships with Matplotlib, so the figures look the same on Windows, macOS, Linux and in Docker. A new test renders Figure 4 and fails on any missing-glyph warning.
   * In Figure 6(b) the legend covered the upper end of the main interval; it now sits between the rows.
   * `reports/results.json` still held the hash of an earlier `configs/research.yaml` (the file had changed only in a comment). It was regenerated, and `config_sha256` now matches the committed config.
@@ -78,3 +78,8 @@ These checks covered the software pipeline only. No research hypothesis was test
 
 * On GitHub the numbered equations in `docs/domain_model.md` were drawn as a collapsed column, and equations (10) and (12) and the first equation of `reports/paper_section_4.md` showed the error "The following macros are not allowed: operatorname". GitHub turns `\tag{n}` into a labelled MathML row that Chromium-based browsers do not lay out, and it does not allow `\operatorname`.
 * Equation numbers are now written as `\qquad (n)`, `\operatorname` was replaced by `\mathrm`, and the two `\underbrace` labels were moved into the text. All 21 changed display equations were rendered with GitHub's own math renderer in the browser before the change was committed: no errors and no horizontal scrolling. The mathematics is unchanged; the PDF report is built from LaTeX and was not affected.
+
+### 2026-11-18, wording of the documents and figures
+
+* Course-stage labels were removed from code comments, documents, figure legends, the notebook and the report; the baseline implementation is now called the original loop bootstrap. Figures 1 and 5, the C4 diagram and the PDF report were regenerated, and `config_sha256` in `reports/results.json` was updated after the comment change in `configs/research.yaml`. All estimates are unchanged.
+* After the change, 30 unit tests passed (Python 3.13, Linux, workbooks present); the pipeline and the notebook (13 code cells, in order, no errors) ran, and the report compiled to 9 pages without warnings.

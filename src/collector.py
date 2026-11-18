@@ -1,13 +1,13 @@
-"""Measurement harness for the Task 2 analysis pipeline.
+"""Measurement harness for the analysis pipeline.
 
-The target function is the Task 2 pipeline itself: validate records, score UPS, then estimate the
+The target function is the original analysis pipeline itself: validate records, score UPS, then estimate the
 Spearman correlation with a percentile-bootstrap interval. Two implementations are timed on
 identical inputs and identical bootstrap resamples:
 
-* ``baseline_loop``: the unchanged Task 2 code (``benchmark.association``), one SciPy call per resample;
+* ``baseline_loop``: the unchanged original code (``benchmark.association``), one SciPy call per resample;
 * ``vectorized``: ``process_data.spearman_bootstrap``, which ranks all resamples in blocks.
 
-Design rules (see docs/METHODOLOGY.md, Task 3 addendum):
+Design rules (see docs/METHODOLOGY.md, measurement addendum):
 
 * Each (implementation, workload) condition starts with ``warmup_runs`` labelled ``phase="warmup"``;
   they are written to the log but excluded from every summary statistic.
@@ -40,7 +40,7 @@ from pathlib import Path
 import numpy as np
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-import benchmark  # noqa: E402  (Task 2 module, unchanged)
+import benchmark  # noqa: E402  (original module, unchanged)
 import process_data  # noqa: E402
 
 ROOT = process_data.ROOT
