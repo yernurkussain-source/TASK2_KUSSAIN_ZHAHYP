@@ -1,0 +1,24 @@
+\section{Introduction}
+
+Large language models moved into higher education within a few semesters, and students now use them to draft, summarise and debug their coursework~\cite{kasneci2023chatgpt}. Their effect on study behaviour is less clear. Procrastination, the voluntary delay of an intended action despite expected costs, is a well-documented self-regulatory failure among students~\cite{steel2007nature}. Its unintentional form, captured by the Unintentional Procrastination Scale (UPS), describes losing track of tasks rather than deliberately postponing them~\cite{fernie2017ups}. Because a GenAI tool can complete a task within minutes, frequent use could plausibly make late starts feel less costly.
+
+Evidence on this link is mixed. In a cross-sectional study of university students, GenAI usage was associated with higher procrastination ($\beta=0.309$)~\cite{abbas2024harmful}, whereas a three-wave panel that controlled for baseline procrastination found that use frequency did not predict later procrastination ($\beta=0.007$)~\cite{zhao2026panel}. Studies from Kazakhstan document wide adoption: 65\% of 840 surveyed students used AI tools for study at least weekly~\cite{askarkyzy2024perceptions}, and continuance intention has been modelled for academic writing~\cite{bekturova2025tefl}. We found no study that relates the frequency of use to procrastination there.
+
+Three gaps follow. First, reported associations rarely state what they are compared with: a null value, a lowest-use group or a demographic model. Second, the analysis code behind such estimates is seldom published or tested, so it is hard to tell whether a result depends on preprocessing choices. Third, Kazakhstani evidence is absent, so local discussion relies on estimates from other countries.
+
+We address these gaps with a secondary analysis of an open survey of Indian students~\cite{sharma2026dataset}, analysed with rank-based statistics and a pipeline that stops when data-quality checks fail. We ask three research questions:
+\begin{itemize}
+\item \textbf{RQ1:} Is academic GenAI-use frequency monotonically associated with the UPS total?
+\item \textbf{RQ2:} How large is the association relative to a lowest-use reference group and to a demographic baseline model?
+\item \textbf{RQ3:} Can the bootstrap pipeline be vectorised without changing its estimates, and with what latency gain?
+\end{itemize}
+
+Our contributions are:
+\begin{itemize}
+\item an estimate of the association with bootstrap and permutation inference, re-estimated in two independently selected samples;
+\item a comparison against five explicit baselines, including a lowest-use reference group and a demographic model;
+\item an open, tested pipeline with guardrails and a benchmark showing that vectorisation preserves estimates to machine precision;
+\item a discussion of how far the Indian estimate can be transferred to Kazakhstan.
+\end{itemize}
+
+Section~\ref{sec:method} describes the data, estimators and pipeline. Section~\ref{sec:results} reports the results and discusses them in Section~\ref{sec:discussion}, and Section~\ref{sec:conclusion} states the limitations and concludes.

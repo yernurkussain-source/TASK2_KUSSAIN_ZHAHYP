@@ -1,0 +1,49 @@
+% IEEE conference paper. Build: latexmk -pdf main.tex   (or upload the paper/ folder to Overleaf)
+\documentclass[conference]{IEEEtran}
+\IEEEoverridecommandlockouts
+
+\usepackage{cite}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{tikz}
+\usetikzlibrary{positioning,arrows.meta,calc}
+\usepackage[hidelinks]{hyperref}
+
+% Numbers produced by the analysis pipeline (src/build_report.py and paper/make_assets.py).
+\input{generated/values}
+\input{generated/paper_values}
+
+\begin{document}
+
+\title{Academic Generative AI Use and Unintentional Procrastination: A Reproducible Secondary Analysis with a Benchmarked Bootstrap Pipeline}
+
+\author{\IEEEauthorblockN{Ernur Kussain}
+\IEEEauthorblockA{Narxoz University\\
+Almaty, Kazakhstan\\
+yernur.kussain@narxoz.kz}
+\and
+\IEEEauthorblockN{Zhanassyl Zhakyp}
+\IEEEauthorblockA{Narxoz University\\
+Almaty, Kazakhstan\\
+zhanassyl.zhakyp@narxoz.kz}}
+
+\maketitle
+
+\begin{abstract}
+Generative artificial intelligence (GenAI) has become part of everyday study, yet it is unclear whether frequent academic use goes together with unintentional procrastination. We re-analysed an open survey of Indian bachelor's and master's students with a rank-based analysis plan fixed before estimation. In the main sample ($n=\vnMain$), GenAI-use frequency was positively associated with the Unintentional Procrastination Scale (UPS) total: Spearman $\hat\rho_s=\vrhoMain$ (95\% bootstrap CI \vrhoMainLo--\vrhoMainHi, $p=\vpAsymMain$). The estimate was stable in two independently selected samples ($\hat\rho_s=\vrhoA$ and \vrhoB). Students using GenAI a few times a week or daily scored 3.5--4 points higher than the lowest-use reference group (Cliff's $\delta\approx0.4$), and frequency raised explained variance over a demographic baseline model from $R^2=\vrTwoBase$ to \vrTwoProp. All results come from a tested pipeline with data-quality guardrails; replacing its loop bootstrap with a vectorised one cut median latency \vspeedTwoEightFive-fold at the study's sample size while returning identical estimates. Within this cross-sectional design the association is modest and cannot be read causally. We discuss what the Indian estimate implies, and does not imply, for students in Kazakhstan.
+\end{abstract}
+
+\begin{IEEEkeywords}
+generative artificial intelligence, unintentional procrastination, higher education, Spearman correlation, bootstrap, reproducible research
+\end{IEEEkeywords}
+
+\input{sections/01_introduction}
+\input{sections/02_methodology}
+\input{sections/03_results}
+\input{sections/04_conclusion}
+
+\bibliographystyle{IEEEtran}
+\bibliography{references}
+
+\end{document}

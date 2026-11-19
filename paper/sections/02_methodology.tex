@@ -1,0 +1,88 @@
+\section{Methodology}\label{sec:method}
+
+Fig.~\ref{fig:arch} gives an overview of the pipeline, and Table~\ref{tab:params} lists its fixed parameters.
+
+\subsection{Data and Samples}\label{sec:data}
+The source is version~1 of an open Mendeley Data record of Indian undergraduate and postgraduate students~\cite{sharma2026dataset}, licensed CC~BY~4.0. It contains a raw workbook with 355 responses and a cleaned workbook with 300. Both files are verified against their published SHA-256 hashes before use. For respondent $i$, the exposure $x_i\in\{1,2,3,4\}$ is the reported frequency of academic GenAI use (a few times a month, once a week, a few times a week, every day), and the target is the UPS total
+\begin{equation}
+y_i=\sum_{k=1}^{6}u_{ik}\in\{6,\dots,24\},\qquad u_{ik}\in\{1,2,3,4\}, \label{eq:ups}
+\end{equation}
+where $u_{ik}$ is the coded answer to item $k$. Recomputed totals matched the totals supplied by the data authors in all 300 cleaned records, and the items were internally consistent (Cronbach's $\alpha=\valphaC$~\cite{cronbach1951alpha}).
+
+The main sample keeps the \vnMain{} cleaned records of bachelor's and master's students and excludes 15 higher-secondary respondents. Because the authors' reasons for removing 55 raw records are not documented, Sensitivity~A re-selects eligible raw records with our own rules ($n=\vnA$). Sensitivity~B additionally keeps the 24 respondents who use GenAI rarely or never as level~0 ($n=\vnB$), which provides a lowest-use group that the main sample lacks.
+
+\subsection{Estimators and Baselines}\label{sec:estimators}
+The primary metric is Spearman's rank correlation~\cite{spearman1904proof},
+\begin{equation}
+\hat\rho_s=\operatorname{corr}\bigl(R(\mathbf{x}),R(\mathbf{y})\bigr), \label{eq:rho}
+\end{equation}
+the Pearson correlation of mid-ranks $R(\cdot)$, which suits an ordinal exposure and a non-normal target. We test $H_0\colon\rho_s=0$ against $H_1\colon\rho_s\neq0$ at $\alpha=0.05$ (two-sided). Uncertainty is quantified with a paired percentile bootstrap~\cite{efron1979bootstrap}: respondents are resampled with replacement $B$ times, and
+\begin{equation}
+\mathrm{CI}_{95\%}=\bigl[Q_{0.025}(\{\hat\rho^{*}_{b}\}),\;Q_{0.975}(\{\hat\rho^{*}_{b}\})\bigr], \label{eq:ci}
+\end{equation}
+where resamples with a constant variable are skipped and at least 95\% must remain valid. A permutation test shuffles $\mathbf{y}$ $B$ times:
+\begin{equation}
+p_{\text{perm}}=\frac{1+\#\bigl\{b\colon|\hat\rho_s(\mathbf{x},\mathbf{y}_{\pi_b})|\ge|\hat\rho_s(\mathbf{x},\mathbf{y})|\bigr\}}{B+1}. \label{eq:perm}
+\end{equation}
+
+Five baselines frame the estimate: (i)~the null value $\rho_s=0$; (ii)~a lowest-use reference group (a few times a month in the main sample, rarely or never in Sensitivity~B), compared with each higher level by the Mann--Whitney test, Cliff's $\delta$~\cite{cliff1993dominance} and Holm correction~\cite{holm1979simple}, after an omnibus Kruskal--Wallis test~\cite{kruskal1952ranks}; (iii)~a demographic model; (iv)~the published estimate of Abbas et al.~\cite{abbas2024harmful}; and (v)~for the pipeline, the original loop implementation. Baseline~(iii) is the model $M_0$ in
+\begin{equation}
+M_0\colon y_i=\mathbf{z}_i^{\top}\boldsymbol\gamma+\varepsilon_i,\qquad M_1\colon y_i=\mathbf{z}_i^{\top}\boldsymbol\gamma+\beta x_i+\varepsilon_i, \label{eq:models}
+\end{equation}
+where $\mathbf{z}_i$ holds age, gender and education. Both are fitted by ordinary least squares, i.e.\ by minimising $\mathcal{L}=\frac{1}{n}\sum_i(y_i-\hat y_i)^2$, with HC3 standard errors~\cite{long2000hc}; the nested $F$-test and $\Delta R^2$ measure what $x_i$ adds. Table~\ref{tab:baselines} and Fig.~\ref{fig:effects} report the estimates against these baselines.
+
+\subsection{Pipeline, Guardrails and Benchmark}\label{sec:pipeline}
+In Fig.~\ref{fig:arch}, one command runs every stage from a single configuration file, and metric points M1--M6 record hashes, exclusions, timings, estimates and output checks. The analysis stops if any guardrail fails: invalid or missing item values, duplicate identifiers, totals outside 6--24, a mismatch with the supplied totals, a constant variable, or fewer than 95\% valid bootstrap resamples.
+
+\begin{figure}[!t]
+\centering
+\begin{tikzpicture}[
+  box/.style={draw, rounded corners=2pt, align=center, font=\scriptsize, inner sep=2.5pt, minimum height=6.5mm, text width=33mm},
+  arr/.style={-{Stealth[length=1.6mm]}, semithick},
+  node distance=3.2mm and 4mm]
+\node[box, text width=72mm, fill=black!5] (cfg) {Configuration: seed 20261007, $B=10^4$, $\alpha=0.05$, file hashes};
+\node[box, below=of cfg.south west, anchor=north west] (src) {Mendeley Data V1: raw ($n{=}355$), cleaned ($n{=}300$)};
+\node[box, below=of src] (prep) {Fetch and prepare: SHA-256 check (M1), coding, samples 285/303/327 (M2)};
+\node[box, below=of prep] (ana) {Analysis: $\hat\rho_s$, bootstrap, permutation, group tests, OLS; guardrails (M4)};
+\node[box, below=of cfg.south east, anchor=north east] (impl) {Analysis function: loop vs vectorised bootstrap};
+\node[box, below=of impl] (col) {Collector: 6 workloads, warm-up, ABBA order, injected errors; JSONL log (M3)};
+\node[box, below=of col] (agg) {Aggregation: p50/p95, speed-up $\mathcal{S}$, error rate $e$, detection $d$ (M5)};
+\node[box, text width=72mm, below=4mm of $(ana.south)!0.5!(agg.south)$] (out) {Results file $\rightarrow$ figures (PDF, 300 dpi) and report tables (M6)};
+\draw[arr] (src) -- (prep);
+\draw[arr] (prep) -- (ana);
+\draw[arr] (impl) -- (col);
+\draw[arr] (col) -- (agg);
+\draw[arr] (ana.south) -- (ana.south |- out.north);
+\draw[arr] (agg.south) -- (agg.south |- out.north);
+\draw[arr] (prep.east) -- (impl.west |- prep.east);
+\end{tikzpicture}
+\caption{Pipeline architecture. Left: survey analysis; right: performance benchmark of the same analysis function. M1--M6 mark where metrics are recorded; the analysis stops when a guardrail fails.}
+\label{fig:arch}
+\end{figure}
+
+The benchmark times one complete analysis call (validation, scoring and a $10^3$-resample bootstrap) for two implementations: the original loop, which calls the rank correlation once per resample, and a vectorised version that ranks blocks of up to 2{,}000 resamples at once with NumPy~\cite{harris2020numpy} while drawing identical resample indices. Workloads of 50--2{,}000 records are resampled from the real data. Each condition has 5 discarded warm-up runs and 30 timed runs in alternating ABBA order, and each timed repetition receives an invalid batch with probability 0.1. With $\tilde L$ denoting median latency, the primary engineering metric is
+\begin{equation}
+\mathcal{S}(w)=\tilde L_{\text{loop}}(w)\,/\,\tilde L_{\text{vec}}(w), \label{eq:speedup}
+\end{equation}
+complemented by the unexpected-error rate $e$, the rejection rate $d$ of injected batches and the largest absolute difference between the two implementations' estimates.
+
+\begin{table}[!t]
+\caption{Fixed Analysis and Benchmark Parameters}
+\label{tab:params}
+\centering
+\footnotesize
+\begin{tabular}{@{}ll@{}}
+\toprule
+Parameter & Value \\
+\midrule
+Seed; significance level & 20261007; $\alpha=0.05$, two-sided \\
+Bootstrap / permutation resamples & $B=10{,}000$ each \\
+Minimum valid bootstrap fraction & 0.95 \\
+Benchmark bootstrap resamples & 1{,}000 per analysis call \\
+Workloads (records per run) & 50, 100, 285, 500, 1{,}000, 2{,}000 \\
+Runs per condition & 5 warm-up (discarded) + 30 timed \\
+Injected invalid batches & probability 0.1 per repetition, 4 types \\
+Agreement tolerance & $|\Delta\hat\rho_s|\le10^{-9}$ \\
+\bottomrule
+\end{tabular}
+\end{table}
