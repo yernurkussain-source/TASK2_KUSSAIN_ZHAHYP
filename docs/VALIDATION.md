@@ -83,3 +83,11 @@ These checks covered the software pipeline only. No research hypothesis was test
 
 * Course-stage labels were removed from code comments, documents, figure legends, the notebook and the report; the baseline implementation is now called the original loop bootstrap. Figures 1 and 5, the C4 diagram and the PDF report were regenerated, and `config_sha256` in `reports/results.json` was updated after the comment change in `configs/research.yaml`. All estimates are unchanged.
 * After the change, 30 unit tests passed (Python 3.13, Linux, workbooks present); the pipeline and the notebook (13 code cells, in order, no errors) ran, and the report compiled to 9 pages without warnings.
+
+## IEEE paper
+
+### 2026-11-19, four-page paper (preparation environment)
+
+* `paper/main.tex` (IEEEtran 1.8b, conference mode) with four section files compiles with `latexmk -pdf` (pdfTeX, BibTeX): exactly 4 pages, no LaTeX or BibTeX warnings, no overfull boxes, no undefined citations or references, all fonts embedded.
+* Every label (6 equations, 3 figures, 3 tables, 6 sections and subsections) is referenced in the text before or on the page of its float; all 18 BibTeX entries are cited. The DOI metadata of every entry was checked against Crossref on 2026-11-19 (DataCite for the dataset); Holm (1979) has no DOI and was checked against the journal record.
+* All numbers come from `generated/values.tex` (written by `src/build_report.py`) and `generated/paper_values.tex` (written by `paper/make_assets.py`); the two figures are drawn from `reports/results.json` and `data/processed/`.

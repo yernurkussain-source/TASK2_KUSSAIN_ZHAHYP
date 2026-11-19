@@ -55,3 +55,15 @@ reports/latex/*.fdb_latexmk
 reports/latex/*.synctex.gz
 reports/latex/*.toc
 reports/latex/*.pdf
+
+# LaTeX build artefacts of the paper (the compiled paper is copied to paper/KUSSAIN_ZHAKYP_IEEE_PAPER.pdf)
+paper/*.aux
+paper/*.bbl
+paper/*.blg
+paper/*.log
+paper/*.out
+paper/*.fls
+paper/*.fdb_latexmk
+paper/*.synctex.gz
+paper/main.pdf
+paper/build.log

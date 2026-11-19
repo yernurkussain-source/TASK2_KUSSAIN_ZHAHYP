@@ -6,6 +6,8 @@
 
 **Report:** [`reports/TASK3_KUSSAIN_ZHAKYP_REPORT.pdf`](reports/TASK3_KUSSAIN_ZHAKYP_REPORT.pdf) (LaTeX source in `reports/latex/`), with the results section as Markdown in [`reports/paper_section_4.md`](reports/paper_section_4.md).
 
+**Paper:** four-page IEEE conference paper [`paper/KUSSAIN_ZHAKYP_IEEE_PAPER.pdf`](paper/KUSSAIN_ZHAKYP_IEEE_PAPER.pdf) (LaTeX source, BibTeX file and build notes in [`paper/`](paper/README.md)).
+
 ## Overview
 
 This repository holds a reproducible secondary analysis of a public Indian higher-education survey (Sharma et al., 2026). It asks whether students who use generative AI more often for academic work report more unintentional procrastination. The design is observational and cross-sectional, so the results describe an association and say nothing about cause. Kazakhstan is the setting we discuss the results for, but no data come from Kazakhstan.
@@ -180,6 +182,13 @@ python src/build_report.py
 latexmk -pdf -cd reports/latex/task3_report.tex
 ```
 
+To rebuild the IEEE paper (needs the `IEEEtran` class in addition):
+
+```bash
+python paper/make_assets.py
+cd paper && latexmk -pdf main.tex
+```
+
 Optional steps:
 
 ```bash
@@ -207,6 +216,7 @@ data/sample/                   Ten synthetic rows used by the smoke test
 docs/domain_model.md           Domain model: LaTeX formalisation, C4 view, STRIDE matrix
 docs/                          Methodology card, data dictionary, validation record
 notebooks/01_data_analysis.ipynb   Executed analysis notebook
+paper/                         IEEE paper: main.tex, sections/, references.bib, generated assets, compiled PDF
 reports/figures/               fig1 to fig6 as PDF and 300 DPI PNG; C4 diagram
 reports/results.json           All estimates, guardrails, hashes and package versions
 reports/paper_section_4.md     Results section with LaTeX formulas, tables and figure captions
